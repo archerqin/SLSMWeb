@@ -25,7 +25,15 @@ class Role(db.Model):
             'Administrator':(0xff, False)
         }
         for r in roles:
-            role = Role.query
+            role = Role.query.filter_by(name=r).first()
+            if role is None:
+                role = Role(name=r)
+            role.permission = roles[r][0]
+            db.session.add(role)
+        db.session.commit()
+    
+    def _repr__(self):
+        return '<Role %r>' % self.name
 
 class User(db.Model, UserMixin):
 
