@@ -71,3 +71,11 @@ class Bug(db.Model):
     __tablename__ = 'bugs'
     bug_id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text)
+    detail = db.Column(db.Text, default="")
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    maintainer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    version_id = db.Column(db.Integer, db.ForeignKey('versions.id'))
+    class_id = db.Column(db.Integer, db.ForeignKey('classes.id'))
+    region_id = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    state = db.Column(db.Integer, default=0)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime)
