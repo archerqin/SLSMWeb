@@ -3,9 +3,10 @@ from app import create_app, db
 from app.base.models import User, Permission, Bug, Role
 from flask_script import Manager, Shell
 from flask_migrate import Migrate, MigrateCommand
-import MySQLdb
+from config import config_dict
+# import MySQLdb
 
-app = create_app(os.getenv('FLASK_CONFIG') or 'default')
+app = create_app(config_dict['Debug'])
 manager = Manager(app)
 migrate = Migrate(app, db)
 
