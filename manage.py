@@ -1,7 +1,7 @@
 import os
 from app import create_app, db
 from app.base.models import User, Permission, Bug, Role
-from flask_script import Manager, Shell
+from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
 from config import config_dict
 # import MySQLdb
@@ -15,6 +15,8 @@ def make_shell_context():
                 Bug=Bug)
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
+manager.add_command('runserver', Server(host="0.0.0.0"))
+
 
 @manager.command
 def deploy():
@@ -26,4 +28,3 @@ def deploy():
 if __name__ == '__main__':
     manager.run()
 
-    ##测试推送

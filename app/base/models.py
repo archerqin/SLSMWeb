@@ -1,5 +1,5 @@
 from flask_login import UserMixin
-from sqlalchemy import BINARY, Column, Integer, String
+from sqlalchemy import BINARY, Column, Integer, String, DateTime, ForeignKey
 from datetime import datetime
 
 from app import db, login_manager
@@ -16,7 +16,7 @@ class Role(db.Model):
     role_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
     permission = db.Column(db.Integer)
-    user = db.relationship('User', backref='role_id', lazy='dynamic')
+    user = db.relationship('User', backref='role', lazy='dynamic')
 
     @staticmethod
     def insert_roles():
@@ -43,9 +43,10 @@ class User(db.Model, UserMixin):
     id = Column(Integer, primary_key=True)
     username = Column(String, unique=True)
     password = Column(BINARY)
+    role_id = Column(String, ForeignKey('roles.role_id'))
 
     def __init__(self, **kwargs):
-        for property, value in kwargs.item():
+        for property, value in kwargs.items():
             if hasattr(value, '__iter__') and not isinstance(value, str):
                 value = value[0]
             if property == 'password':
@@ -75,9 +76,9 @@ class Bug(db.Model):
     detail = db.Column(db.Text, default="")
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     maintainer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
-    version_id = db.Column(db.Integer, db.ForeignKey('versions.id'))
-    class_id = db.Column(db.Integer, db.ForeignKey('classes.id'))
-    region_id = db.Column(db.Integer, db.ForeignKey('regions.id'))
+    version_id = db.Column(db.Integer, db.ForeignKey('versions.version_id'))
+    class_id = db.Column(db.Integer, db.ForeignKey('classes.class_id'))
+    region_id = db.Column(db.Integer, db.ForeignKey('regions.region_id'))
     state = db.Column(db.Integer, default=0)
     timestamp = db.Column(db.DateTime, index=True, default=int(datetime.timestamp(datetime.now())))
 

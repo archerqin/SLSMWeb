@@ -15,7 +15,7 @@ from app.base.util import verity_pass
 
 @blueprint.route('/')
 def route_default():
-    return refirect(url_for('base_blueprint.login'))
+    return redirect(url_for('base_blueprint.login'))
 
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -27,7 +27,7 @@ def login():
 
         user = User.query.filter_by(username=username).first()
 
-        if user and verity_pass( password, user,password):
+        if user and verity_pass( password, user.password):
 
             login_user(user)
             return redirect(url_for('base_blueprint.route_default'))
