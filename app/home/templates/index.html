@@ -136,7 +136,7 @@
                 <span class="nav-tabs-title">Tasks:</span>
                 <ul class="nav nav-tabs" data-tabs="tabs">
                   <li class="nav-item">
-                    <a class="nav-link active" href="#profile" data-toggle="tab">
+                    <a class="nav-link active" href="{{ url_for('.show_bugs', flag=1) }}" data-toggle="tab">
                       <i class="material-icons">bug_report</i> Bugs
                       <div class="ripple-container"></div>
                     </a>
@@ -154,11 +154,37 @@
                     </a>
                   </li>
                   <form class="form-inline ml-auto">
-                    <button type="submit" class="btn btn-just-icon">
-                      <i class="material-icons">add_task</i>
+                    <button type="button" class="btn btn-just-icon" data-backdrop="false" data-toggle="modal" data-target="#exampleModal">
+                      <a class="material-icons">add_task</a>
                       <div class="ripple-container"></div>
                     </button>
                   </form>
+                  <!-- Modal -->
+                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="bugCommitModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" style="margin-top:20%;margin-left:20%;">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="bugCommitModalLabel">出了什么问题？</h5>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          TESTE
+                          ewe
+                          ewwarning
+                          seele
+                          nerv
+                          wille
+
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                          <button type="submit" class="btn btn-primary">提交</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                   
 
                 </ul>
