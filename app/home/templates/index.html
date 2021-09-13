@@ -1,6 +1,6 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} Dashboard {% endblock %} 
+{% block title %} 缺陷仪表盘 {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}{% endblock stylesheets %}
@@ -159,35 +159,35 @@
                       <div class="ripple-container"></div>
                     </button>
                   </form>
-                  <!-- Modal -->
-                  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="bugCommitModalLabel" aria-hidden="true">
-                    <div class="modal-dialog modal-lg" style="margin-top:20%;margin-left:20%;">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="bugCommitModalLabel">出了什么问题？</h5>
-                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                          </button>
-                        </div>
-                        <div class="modal-body">
-                          TESTE
-                          ewe
-                          ewwarning
-                          seele
-                          nerv
-                          wille
-
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                          <button type="submit" class="btn btn-primary">提交</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  
                   
 
                 </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="bugCommitModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg" style="margin-top:20%;margin-left:20%;">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="bugCommitModalLabel">出了什么问题？</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group form-inline form-control">
+                      <label for="InputBug">Bug</label>
+                      <input type="text" class="form-control" id="InputBug" placeholder="简洁清晰地描述">
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                  <button type="submit" class="btn btn-primary">提交</button>
+                </div>
               </div>
             </div>
           </div>
