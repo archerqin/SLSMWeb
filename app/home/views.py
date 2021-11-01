@@ -17,3 +17,6 @@ def show_bugs(flag):
         print("show_bugs flag1")
         return resp
 
+@blueprint.route('submit')
+def method_name():
+    pass
