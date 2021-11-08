@@ -3,6 +3,7 @@ from flask import render_template, redirect, url_for, request, make_response
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
+from ..base.models import Bug
 
 @blueprint.route('/index')
 @login_required
@@ -17,6 +18,7 @@ def show_bugs(flag):
         print("show_bugs flag1")
         return resp
 
-@blueprint.route('submit')
-def method_name():
+@blueprint.route('/caseSubmit', method=['Get', 'Post'])
+def case_submit():
     pass
+    
