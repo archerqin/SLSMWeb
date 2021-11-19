@@ -1,3 +1,4 @@
+from sqlalchemy.orm.session import close_all_sessions
 from app.home import blueprint
 from flask import render_template, redirect, url_for, request, make_response, jsonify, json
 from flask_login import login_required, current_user
@@ -9,7 +10,9 @@ from .. import db
 @blueprint.route('/index')
 @login_required
 def index():
-    return render_template('index.html', segment='index')
+    cases = Bug.query.items
+
+    return render_template('index.html', segment='index', cases=cases)
 
 @blueprint.route('/bug/flag=<int:flag>')
 def show_bugs(flag):
@@ -29,5 +32,5 @@ def case_commit():
     print(text, desc)
     case = Bug(text=text, detail=desc)
     db.session.add(case)
-
-    return jsonify(data)    
+    db.session.commit()
+    return jsonify(data)

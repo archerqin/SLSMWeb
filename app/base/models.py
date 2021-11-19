@@ -80,7 +80,7 @@ class Bug(db.Model):
     class_id = db.Column(db.Integer, db.ForeignKey('classes.class_id'))
     region_id = db.Column(db.Integer, db.ForeignKey('regions.region_id'))
     state = db.Column(db.Integer, default=0)
-    timestamp = db.Column(db.DateTime, index=True, default=int(datetime.timestamp(datetime.now())))
+    timestamp = db.Column(db.Integer, index=True, default=int(datetime.timestamp(datetime.now())))
 
 class Version(db.Model):
     __tablename__ = 'versions'
