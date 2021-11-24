@@ -10,9 +10,9 @@ from .. import db
 @blueprint.route('/index')
 @login_required
 def index():
-    cases = Bug.query.items
+    # cases = Bug.query.items
 
-    return render_template('index.html', segment='index', cases=cases)
+    return render_template('index.html', segment='index')
 
 @blueprint.route('/bug/flag=<int:flag>')
 def show_bugs(flag):
@@ -34,3 +34,8 @@ def case_commit():
     db.session.add(case)
     db.session.commit()
     return jsonify(data)
+
+@blueprint.route('/testcase')
+@login_required
+def testcase():
+    return render_template('testcase.html', segment='testcase')
