@@ -31,16 +31,31 @@
         - 0级 总纲 superclass 
         - 1级 具体系统 system
         - 2级 具体功能 function
-        - 3级 详细条目 item ?step
+        - 3级 详细条目 step
+    - 其他
+        - 配置
     - 数据库
-        - testcase
-        - id 唯一
-        - class_id 根据不同层级（0~2）的id进行组合，用于精确定位
-        - precondition 前置条件
-        - operation
-        - result
-        - pass/fail
-        - relation
+        - step
+            - id 唯一
+            - class_id 根据不同层级（0~2）的id进行组合，用于精确定位
+            - precondition 前置条件
+            - operation
+            - result
+            - pass/fail
+            - relation
+            - author
+            - description
+        - function
+            - id 唯一
+            - relation
+            - summary
+            - 
+        - system
+            - id 唯一
+            - summary
+        - superclass
+            - id 唯一
+            - summary
 
     - ID 系统id_序列id
     - 系统名称 系统_二级系统
