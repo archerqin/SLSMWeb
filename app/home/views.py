@@ -10,7 +10,8 @@ from .. import db
 @blueprint.route('/index')
 @login_required
 def index():
-    # cases = Bug.query.items
+    cases = Bug.query.items
+    
 
     return render_template('index.html', segment='index')
 
