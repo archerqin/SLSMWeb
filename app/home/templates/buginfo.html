@@ -1,4 +1,4 @@
-{% for bug in bugs %}
+{% for case in cases %}
 <tr>
     <td>
       <div class="form-check">
@@ -10,7 +10,7 @@
         </label>
       </div>
     </td>
-    <td>Sign contract for "What are conference organizers afraid of?"</td>
+    <td>{{ case.detail}}</td>
     <td class="td-actions text-right">
       <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
         <i class="material-icons">edit</i>

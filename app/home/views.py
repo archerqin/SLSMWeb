@@ -10,10 +10,12 @@ from .. import db
 @blueprint.route('/index')
 @login_required
 def index():
-    cases = Bug.query.items
-    
+    cases = Bug.query.all()
+    # for case in cases:
+    #     print(case)
 
-    return render_template('index.html', segment='index')
+
+    return render_template('index.html', segment='index', cases=cases)
 
 @blueprint.route('/bug/flag=<int:flag>')
 def show_bugs(flag):
