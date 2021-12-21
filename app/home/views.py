@@ -36,7 +36,8 @@ def case_commit():
     case = Bug(text=text, detail=desc)
     db.session.add(case)
     db.session.commit()
-    return jsonify(data)
+    # return jsonify(data)
+    return render_template('index.html',data=data)
 
 @blueprint.route('/testcase')
 @login_required
