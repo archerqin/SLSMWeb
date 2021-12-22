@@ -23,7 +23,7 @@ $(document).ready(function() {
                 datatype: 'json',
                 success: function(data){
                     console.log(location.href);
-
+                    window.location.href = "index"
                 }
             })
         };

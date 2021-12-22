@@ -1,3 +1,4 @@
+from flask_sqlalchemy import Pagination
 from sqlalchemy.orm.session import close_all_sessions
 from app.home import blueprint
 from flask import render_template, redirect, url_for, request, make_response, jsonify, json
@@ -6,16 +7,22 @@ from app import login_manager
 from jinja2 import TemplateNotFound
 from ..base.models import Bug
 from .. import db
+import time
 
-@blueprint.route('/index')
+@blueprint.route('/index', methods=['GET','POST'])
 @login_required
 def index():
-    cases = Bug.query.all()
+    # cases = Bug.query.all()
+    query = Bug.query
     # for case in cases:
     #     print(case)
 
+    page = request.args.get('page', 1, type=int)
+    pagination = query.order_by(Bug.timestamp.desc()).paginate(
+        page, per_page=5, error_out=False)
+    cases = pagination.items
 
-    return render_template('index.html', segment='index', cases=cases)
+    return render_template('index.html', cases=cases, pagination=pagination)
 
 @blueprint.route('/bug/flag=<int:flag>')
 def show_bugs(flag):
@@ -24,7 +31,7 @@ def show_bugs(flag):
         print("show_bugs flag1")
         return resp
 
-@blueprint.route('/case_commit', methods=['Get', 'Post'])
+@blueprint.route('/case_commit', methods=['GET', 'POST'])
 def case_commit():
     print("case_commit")
     # resp = make_response(redirect(url_for('.index')))
@@ -32,12 +39,13 @@ def case_commit():
     data = json.loads(request.form.get('data'))
     text = data['text']
     desc = data['desc']
+    timestamp = int(time.time())
     print(text, desc)
-    case = Bug(text=text, detail=desc)
+    case = Bug(text=text, detail=desc, timestamp=timestamp)
     db.session.add(case)
     db.session.commit()
-    # return jsonify(data)
-    return render_template('index.html',data=data)
+    return redirect(url_for('.index'))
+    # return render_template('index.html',data=data)
 
 @blueprint.route('/testcase')
 @login_required

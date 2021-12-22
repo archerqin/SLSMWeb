@@ -5082,6 +5082,7 @@ tbody.collapse.show {
   color: #2196f3;
   background-color: transparent;
   border: 0 solid #dee2e6;
+  border-radius: 50%!important;
 }
 
 .page-link:hover {
@@ -5089,6 +5090,7 @@ tbody.collapse.show {
   text-decoration: none;
   background-color: #e9ecef;
   border-color: #dee2e6;
+  border-radius: 50%!important;
 }
 
 .page-link:focus {
@@ -5115,8 +5117,9 @@ tbody.collapse.show {
 .page-item.active .page-link {
   z-index: 1;
   color: #ffffff;
-  background-color: #2196f3;
+  background-color: #e91e63;
   border-color: #2196f3;
+  border-radius: 50%!important;
 }
 
 .page-item.disabled .page-link {
@@ -5125,6 +5128,7 @@ tbody.collapse.show {
   cursor: auto;
   background-color: transparent;
   border-color: #dee2e6;
+  border-radius: 50%!important;
 }
 
 .pagination-lg .page-link {
@@ -19753,4 +19757,4 @@ Copyright (c) 2015 Daniel Eden
   }
 }
 
-/*# sourceMappingURL=dashboard-free.css.map */
+/*# sourceMappingURL=material-dashboard.css.map */

@@ -97,4 +97,9 @@ DL20211212
     - [] 输入、输出
     - [] 多线程
 - 
+- 
 
+#问题
+- [x] redirect无法跳转
+    - ajax返回数据后将执行sucess部分，所以应该在sucess中执行重定向
+- [] 增加pagination后footer移位重叠到最上方的原因
