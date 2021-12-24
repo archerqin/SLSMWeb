@@ -1,6 +1,8 @@
+<!-- <table class="table-hover">
+  <tbody> -->
 {% for case in cases %}
 <tr>
-    <td class="text-left">
+    <td>
       <div class="form-check">
         <label class="form-check-label">
           <input class="form-check-input" type="checkbox" value="" checked>
@@ -11,7 +13,7 @@
       </div>
     </td>
     <td class="table-primary">{{ case.text}}</td>
-    <td class="table-danger td-actions text-center">
+    <td class="table-danger text-right">
       <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
         <i class="material-icons">edit</i>
       </button>
@@ -21,7 +23,8 @@
     </td>
 </tr>
 {% endfor %}
-
+<!-- </tbody>
+</table> -->
 {% block scripts %}
   <!-- <> -->
 {% endblock %}
