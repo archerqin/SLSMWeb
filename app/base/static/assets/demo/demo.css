@@ -59,3 +59,40 @@
   height: calc(100vh - 70px);
   margin-top: 70px;
 }
+
+/* 自行添加 */
+
+ul.cases {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px 0px 0px 0px;
+  border-top: 1px solid #e0e0e0;
+}
+ul.cases li.case {
+  padding: 8px;
+  border-bottom: 1px solid #f0f0f0;
+  align-items: center;
+}
+ul.cases li.case:hover {
+  background-color: #f0f0f0;
+}
+div.case-left {
+  float: left;
+}
+div.case-content {
+  margin-left: 1px;
+  min-height: 1px;
+}
+td.case-singlebody {
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+td.case-singlebody:hover {
+  white-space: normal;
+}
+div.case-right {
+  float: right;
+}
