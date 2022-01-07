@@ -5,30 +5,30 @@ from flask import render_template, redirect, url_for, request, make_response, js
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
-from ..base.models import Bug
+from ..base.models import Case
 from .. import db
 import time
 
 @blueprint.route('/index', methods=['GET','POST'])
 @login_required
 def index():
-    # cases = Bug.query.all()
-    query = Bug.query
+    # cases = Case.query.all()
+    query = Case.query
     # for case in cases:
     #     print(case)
 
     page = request.args.get('page', 1, type=int)
-    pagination = query.order_by(Bug.timestamp.desc()).paginate(
+    pagination = query.order_by(Case.timestamp.desc()).paginate(
         page, per_page=5, error_out=False)
     cases = pagination.items
 
     return render_template('index.html', cases=cases, pagination=pagination)
 
-@blueprint.route('/bug/flag=<int:flag>')
-def show_bugs(flag):
+@blueprint.route('/case/flag=<int:flag>')
+def show_cases(flag):
     if flag == 1:
         resp = make_response(redirect(url_for('.index')))
-        print("show_bugs flag1")
+        print("show_cases flag1")
         return resp
 
 @blueprint.route('/case_commit', methods=['GET', 'POST'])
@@ -41,7 +41,7 @@ def case_commit():
     desc = data['desc']
     timestamp = int(time.time())
     print(text, desc)
-    case = Bug(text=text, detail=desc, timestamp=timestamp)
+    case = Case(text=text, detail=desc, timestamp=timestamp)
     db.session.add(case)
     db.session.commit()
     return redirect(url_for('.index'))

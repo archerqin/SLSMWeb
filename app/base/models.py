@@ -7,8 +7,8 @@ from app import db, login_manager
 from app.base.util import hash_pass
 
 class Permission:
-    COMMITBUG = 0x01
-    FINISHBUGS = 0x02
+    COMMIT = 0x01
+    FINISH = 0x02
     ADMINISTRATOR = 0x80
 
 class Role(db.Model):
@@ -21,8 +21,8 @@ class Role(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
-            'User':(Permission.COMMITBUG |
-                    Permission.FINISHBUGS, True),
+            'User':(Permission.COMMIT |
+                    Permission.FINISH, True),
             'Administrator':(0xff, False)
         }
         for r in roles:
@@ -69,9 +69,9 @@ def request_loader(request):
     return user if user else None
 
 
-class Bug(db.Model):
-    __tablename__ = 'bugs'
-    bug_id = db.Column(db.Integer, primary_key=True)
+class Case(db.Model):
+    __tablename__ = 'cases'
+    case_id = db.Column(db.Integer, primary_key=True)
     text = db.Column(db.Text)
     detail = db.Column(db.Text, default="")
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))

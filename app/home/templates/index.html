@@ -138,7 +138,7 @@
                 <span class="nav-tabs-title">Tasks:</span>
                 <ul class="nav nav-tabs" data-tabs="tabs">
                   <li class="nav-item">
-                    <a class="nav-link active" href="{{ url_for('.show_bugs', flag=1) }}" data-toggle="tab">
+                    <a class="nav-link active" href="{{ url_for('.show_cases', flag=1) }}" data-toggle="tab">
                       <i class="material-icons">bug_report</i> Bugs
                       <div class="ripple-container"></div>
                     </a>
@@ -165,60 +165,7 @@
               </div>
             </div>
           </div>
-          <!-- Modal -->
-          <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="bugCommitModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" style="margin-top:20%;margin-left:20%;">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title" id="bugCommitModalLabel">出了什么问题？</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                  <form>
-                    <div class="form-group">
-                      <label for="caseText0" form-control>Case</label>
-                      <input type="text" class="form-control" id="caseText0" placeholder="简洁清晰地描述">
-                    </div>
-                  </form>
-                  <form>
-                    <div class="form-group">
-                      <label for="caseDesc0">Desc</label>
-                      <textarea class="form-control" rows="5" id="caseDesc0" placeholder="简洁清晰地描述"></textarea>
-                    </div>
-                  </form>
-                  <form>
-                    <div class="form-group">
-                      <label class="col-sm-2 control-label" for="ds_username">用户名</label>
-                      <div class="col-sm-4">
-                          <input class="form-control" id="ds_username" type="text" placeholder="root"/>
-                      </div>
-                      <div class="dropdown">
-                        <button class="col-sm-2 control-label btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                          Dropdown button
-                        </button>
-                        <div class="col-sm-4 dropdown-menu" aria-labelledby="dropdownMenuButton">
-                          <a class="dropdown-item" href="#">Action</a>
-                          <a class="dropdown-item" href="#">Another action</a>
-                          <a class="dropdown-item" href="#">Something else here</a>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-group form-check">
-                      <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                      <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                    </div>
-                  </form>
-
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
-                  <button id="case_commit_0" type="submit" class="btn btn-primary" data-dismiss="modal">提交</button>
-                </div>
-              </div>
-            </div>
-          </div>
+          {% include 'modals/modal_caseCommit.html' %}
           <div class="card-body">
             <div class="tab-content">
               <div class="tab-pane active" id="profile">

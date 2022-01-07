@@ -1,6 +1,6 @@
 import os
 from app import create_app, db
-from app.base.models import User, Permission, Bug, Role
+from app.base.models import User, Permission, Case, Role
 from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
 from config import config_dict
