@@ -8,7 +8,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="overflow-y: scroll">
         <form>
           <div class="form-group">
             <label for="caseText0" form-control>Case</label>
@@ -21,7 +21,46 @@
             <textarea class="form-control" rows="5" id="caseDesc0" placeholder="简洁清晰地描述"></textarea>
           </div>
         </form>
-        <form>
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-1 control-label">状态</label>
+            <select class="col-sm-2">
+              <option>待发布</option>
+              <option>发布</option>
+              <option>修复</option>
+              <option>关闭</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">版本</label>
+            <select class="col-sm-2">
+              <option>无</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-1 control-label">修复</label>
+            <select class="col-sm-2">
+              <option>无</option>
+            </select>
+          </div>
+        </form>
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-1 control-label">版本</label>
+            <select class="col-sm-2">
+              <option>无</option>
+            </select>
+          </div>
+        </form>
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <label class="col-sm-1 control-label">修复</label>
+            <select class="col-sm-2">
+              <option>无</option>
+            </select>
+          </div>
+        </form>
+        <!-- <form>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="ds_username">用户名</label>
             <div class="col-sm-4">
@@ -42,7 +81,7 @@
             <input type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Check me out</label>
           </div>
-        </form>
+        </form> -->
 
       </div>
       <div class="modal-footer">
