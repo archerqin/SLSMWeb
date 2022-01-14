@@ -47,6 +47,10 @@ def case_commit():
     return redirect(url_for('.index'))
     # return render_template('index.html',data=data)
 
+@blueprint.route('/case_delete', methods=['GET', 'POST'])
+def case_delete():
+    pass
+
 @blueprint.route('/testcase')
 @login_required
 def testcase():
