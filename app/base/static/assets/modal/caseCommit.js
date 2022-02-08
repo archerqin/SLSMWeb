@@ -12,6 +12,11 @@ $(document).ready(function() {
         // }
     })
 
+    $('#caseDelete').click(function() {
+        console.log("2222")
+        $('#deleteCaseModal').modal('show')
+    })
+
     $('#case_commit_0').click(function() {
         console.log("submit")
         $.fn.caseSubmit = function() {

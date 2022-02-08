@@ -1,7 +1,7 @@
 from flask_sqlalchemy import Pagination
 from sqlalchemy.orm.session import close_all_sessions
 from app.home import blueprint
-from flask import render_template, redirect, url_for, request, make_response, jsonify, json
+from flask import render_template, redirect, url_for, request, make_response, jsonify, json, flash
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
@@ -47,9 +47,20 @@ def case_commit():
     return redirect(url_for('.index'))
     # return render_template('index.html',data=data)
 
-@blueprint.route('/case_delete', methods=['GET', 'POST'])
-def case_delete():
-    pass
+@blueprint.route('/case_delete/<int:case_id>', methods=['GET', 'POST'])
+def case_delete(case_id):
+    case = Case.query.get_or_404(case_id)
+    db.session.delete(case)
+    try:
+        db.session.commit()
+    except:
+        db.session.rollback()
+        flash('删除失败！')
+    else:
+        flash('删除成功')
+    page = request.args.get('page', 1, type=int)
+
+    return redirect(url_for('.index', case_id=case.case_id, page=page))
 
 @blueprint.route('/testcase')
 @login_required
