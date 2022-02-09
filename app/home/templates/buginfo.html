@@ -13,11 +13,13 @@
         <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
           <i class="material-icons">edit</i>
         </button>
-        <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm">
+        <button id="buttonDeleteCase{{ case.case_id }}" type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-target="#modalCaseDelete{{ case.case_id }}">
           <i class="material-icons">close</i>
         </button>
       </td>
+      {% include 'modals/modal_caseDelete.html' %}
   </tr>
+  
   {% endfor %}
 </tbody>
 {% block scripts %}

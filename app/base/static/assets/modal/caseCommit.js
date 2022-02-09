@@ -10,14 +10,32 @@ $(document).ready(function() {
         //     });
         //     layer.close(index);
         // }
-    })
+    });
 
-    $('#caseDelete').click(function() {
+    $("button[id^='confirmCasDelete'").unbind('click').on('click',function() {
         console.log("2222")
-        $('#deleteCaseModal').modal('show')
-    })
+        $.fn.caseDelete = function() {
+            
+            var button_val = $(this).html()
+            console.log(button_val)
+            var case_id = $(this).attr("id").substring(10)
+            console.log(case_id)
+            // $.ajax({
+            //     type: "POST",
+            //     url: "/case_delete",
+            //     cache: false,
+            //     data:data,
+            //     datatype: 'json',
+            //     success: function(data){
+            //         console.log(location.href);
+            //         window.location.href = "index"
+            //     }
+            // })
+        };
+        $("button[id^='confirmCasDelete'").caseDelete()
+    });
 
-    $('#case_commit_0').click(function() {
+    $('#caseCommit0').click(function() {
         console.log("submit")
         $.fn.caseSubmit = function() {
             caseText = $("#caseText0").val()
