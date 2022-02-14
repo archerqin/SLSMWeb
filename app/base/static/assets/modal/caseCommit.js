@@ -12,7 +12,7 @@ $(document).ready(function() {
         // }
     });
 
-    $("button[id^='confirmCasDelete'").unbind('click').on('click',function() {
+    $("[id^='confirmCasDelete'").unbind('click').on('click',function() {
         console.log("2222")
         $.fn.caseDelete = function() {
             
@@ -32,7 +32,7 @@ $(document).ready(function() {
             //     }
             // })
         };
-        $("button[id^='confirmCasDelete'").caseDelete()
+        $("button").caseDelete()
     });
 
     $('#caseCommit0').click(function() {

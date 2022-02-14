@@ -62,6 +62,11 @@ def case_delete(case_id):
 
     return redirect(url_for('.index', case_id=case.case_id, page=page))
 
+@blueprint.route('/autotest')
+@login_required
+def autotest():
+    return render_template('autotest.html', segment='autotest')
+
 @blueprint.route('/testcase')
 @login_required
 def testcase():
