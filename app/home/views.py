@@ -18,6 +18,7 @@ def index():
     #     print(case)
 
     page = request.args.get('page', 1, type=int)
+    print("index:",page)
     pagination = query.order_by(Case.timestamp.desc()).paginate(
         page, per_page=5, error_out=False)
     cases = pagination.items
@@ -47,8 +48,10 @@ def case_commit():
     return redirect(url_for('.index'))
     # return render_template('index.html',data=data)
 
-@blueprint.route('/case_delete/<int:case_id>', methods=['GET', 'POST'])
-def case_delete(case_id):
+@blueprint.route('/case_delete', methods=['GET', 'POST'])
+def case_delete():
+    data = json.loads(request.form.get('data'))
+    case_id = data['id']
     case = Case.query.get_or_404(case_id)
     db.session.delete(case)
     try:

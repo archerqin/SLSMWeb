@@ -10,10 +10,10 @@
       </td>
       <td class="table-primary case-singlebody">{{ case.text}}</td>
       <td width="13%">
-        <button type="button" rel="tooltip" title="Edit Task" class="btn btn-primary btn-link btn-sm">
+        <button type="button" class="btn btn-primary btn-link btn-sm">
           <i class="material-icons">edit</i>
         </button>
-        <button id="buttonDeleteCase{{ case.case_id }}" type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-target="#modalCaseDelete{{ case.case_id }}">
+        <button id="buttonDeleteCase{{ case.case_id }}" title="Remove" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-target="#modalCaseDelete{{ case.case_id }}">
           <i class="material-icons">close</i>
         </button>
       </td>
@@ -23,5 +23,5 @@
   {% endfor %}
 </tbody>
 {% block scripts %}
-  <!-- <> -->
+
 {% endblock %}

@@ -12,25 +12,27 @@ $(document).ready(function() {
         // }
     });
 
-    $("[id^='confirmCasDelete'").unbind('click').on('click',function() {
+    $("[id^='confirmCaseDelete'").unbind('click').on('click',function() {
         console.log("2222")
         $.fn.caseDelete = function() {
-            
-            var button_val = $(this).html()
-            console.log(button_val)
-            var case_id = $(this).attr("id").substring(10)
+            var case_id = $(event.target).attr("id").substring(17)
             console.log(case_id)
-            // $.ajax({
-            //     type: "POST",
-            //     url: "/case_delete",
-            //     cache: false,
-            //     data:data,
-            //     datatype: 'json',
-            //     success: function(data){
-            //         console.log(location.href);
-            //         window.location.href = "index"
-            //     }
-            // })
+            var data = {
+                data: JSON.stringify({
+                    'id':case_id
+                })
+            }
+            $.ajax({
+                type: "POST",
+                url: "/case_delete",
+                cache: false,
+                data:data,
+                datatype: 'json',
+                success: function(data){
+                    console.log(location.href);
+                    window.location.href = "index"
+                }
+            })
         };
         $("button").caseDelete()
     });

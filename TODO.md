@@ -118,4 +118,6 @@
 - [] modal右侧滑轨
 - [] modal出现位置调整
 - 
-- [] $(this)总是获取到最后那个的问题
+- [x] $(this)总是获取到最后那个的问题
+    - [] 可能是scripts.html内加载caseCommon.js导致的
+    - [x] 先用$(event.target)替代
