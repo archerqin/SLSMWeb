@@ -23,13 +23,15 @@ class Role(db.Model):
         roles = {
             'User':(Permission.COMMIT |
                     Permission.FINISH, True),
-            'Administrator':(0xff, False)
+            'Administrator':(0xff, False),
+            'SuperAdmin':(0xff, False)
         }
         for r in roles:
             role = Role.query.filter_by(name=r).first()
             if role is None:
                 role = Role(name=r)
             role.permission = roles[r][0]
+            print(role)
             db.session.add(role)
         db.session.commit()
     
@@ -54,8 +56,23 @@ class User(db.Model, UserMixin):
 
             setattr(self, property, value)
 
+    @staticmethod
+    def create_superadmin():
+        users = {
+            'gz0645': (hash_pass('112358'),3)
+        }
+        for u in users:
+            user = User.query.filter_by(username=u).first()
+            if user is None:
+                user = User(username=u)
+            user.password = users[u][0]
+            user.role_id = users[u][1]
+            db.session.add(user)
+        db.session.commit()
+
     def __repr__(self):
-        return str(self.username)
+        # return str(self.username)
+        return '<User %r>' % self.username
 
     
 @login_manager.user_loader
@@ -68,10 +85,11 @@ def request_loader(request):
     user = User.query.filter_by(username=username).first()
     return user if user else None
 
-
-class Case(db.Model):
+##修改case
+class Case(db.Model):  
     __tablename__ = 'cases'
     case_id = db.Column(db.Integer, primary_key=True)
+    type_id = db.Column(db.Integer, default=1)
     text = db.Column(db.Text)
     detail = db.Column(db.Text, default="")
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
@@ -82,17 +100,20 @@ class Case(db.Model):
     state = db.Column(db.Integer, default=0)
     timestamp = db.Column(db.Integer, index=True, default=int(datetime.timestamp(datetime.now())))
 
-class Version(db.Model):
+##版本号
+class Version(db.Model): 
     __tablename__ = 'versions'
     version_id = db.Column(db.Integer, primary_key=True)
     version_name = db.Column(db.String(32))
-    
-class Class(db.Model):
+
+##
+class Class(db.Model):  
     __tablename__ = 'classes'
     class_id = db.Column(db.Integer, primary_key=True)
     class_name = db.Column(db.String(32))
 
-class Region(db.Model):
+##地区
+class Region(db.Model):  
     __tablename__ = 'regions'
     region_id = db.Column(db.Integer, primary_key=True)
     region_name = db.Column(db.String(32))

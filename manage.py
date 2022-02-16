@@ -24,6 +24,7 @@ def deploy():
     from app.base.models import Role, User
     upgrade()
     Role.insert_roles()
+    User.create_superadmin()
 
 if __name__ == '__main__':
     manager.run()

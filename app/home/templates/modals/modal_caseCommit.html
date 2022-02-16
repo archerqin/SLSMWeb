@@ -23,6 +23,12 @@
         </form>
         <form class="form-horizontal" role="form">
           <div class="form-group">
+            <label class="col-sm-1 control-label">类型</label>
+            <select id="case_type" class="col-sm-2">
+              <option selected>BUG</option>
+              <option>策划调整</option>
+              <option>程序调整</option>
+            </select>
             <label class="col-sm-1 control-label">状态</label>
             <select class="col-sm-2">
               <option>待发布</option>
@@ -30,22 +36,6 @@
               <option>修复</option>
               <option>关闭</option>
             </select>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-1 control-label">版本</label>
-            <select class="col-sm-2">
-              <option>无</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label class="col-sm-1 control-label">修复</label>
-            <select class="col-sm-2">
-              <option>无</option>
-            </select>
-          </div>
-        </form>
-        <form class="form-horizontal" role="form">
-          <div class="form-group">
             <label class="col-sm-1 control-label">版本</label>
             <select class="col-sm-2">
               <option>无</option>
@@ -54,35 +44,23 @@
         </form>
         <form class="form-horizontal" role="form">
           <div class="form-group">
-            <label class="col-sm-1 control-label">修复</label>
+            <label class="col-sm-1 control-label">类型</label>
+            <select class="col-sm-2">
+              <option>无</option>
+            </select>
+            <label class="col-sm-1 control-label">状态</label>
+            <select class="col-sm-2">
+              <option>待发布</option>
+              <option>发布</option>
+              <option>修复</option>
+              <option>关闭</option>
+            </select>
+            <label class="col-sm-1 control-label">版本</label>
             <select class="col-sm-2">
               <option>无</option>
             </select>
           </div>
         </form>
-        <!-- <form>
-          <div class="form-group">
-            <label class="col-sm-2 control-label" for="ds_username">用户名</label>
-            <div class="col-sm-4">
-                <input class="form-control" id="ds_username" type="text" placeholder="root"/>
-            </div>
-            <div class="dropdown">
-              <button class="col-sm-2 control-label btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                Dropdown button
-              </button>
-              <div class="col-sm-4 dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Action</a>
-                <a class="dropdown-item" href="#">Another action</a>
-                <a class="dropdown-item" href="#">Something else here</a>
-              </div>
-            </div>
-          </div>
-          <div class="form-group form-check">
-            <input type="checkbox" class="form-check-input" id="exampleCheck1">
-            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-          </div>
-        </form> -->
-
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>

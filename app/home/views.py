@@ -32,6 +32,26 @@ def show_cases(flag):
         print("show_cases flag1")
         return resp
 
+@blueprint.route('/caseall')
+def case_all():
+    resp = make_response(redirect(url_for('.index')))
+    resp.set_cookie('case_type','0',max_age=30*24*60*60)
+
+@blueprint.route('/case1') ##bug
+def case_1():
+    resp = make_response(redirect(url_for('.index')))
+    resp.set_cookie('case_type','1',max_age=30*24*60*60)
+
+@blueprint.route('/case2') ##策划修改
+def case_2():
+    resp = make_response(redirect(url_for('.index')))
+    resp.set_cookie('case_type','2',max_age=30*24*60*60)
+
+@blueprint.route('/case3') ##程序优化
+def case_3():
+    resp = make_response(redirect(url_for('.index')))
+    resp.set_cookie('case_type','3',max_age=30*24*60*60)
+
 @blueprint.route('/case_commit', methods=['GET', 'POST'])
 def case_commit():
     print("case_commit")
@@ -40,9 +60,10 @@ def case_commit():
     data = json.loads(request.form.get('data'))
     text = data['text']
     desc = data['desc']
+    type = data['type']
     timestamp = int(time.time())
-    print(text, desc)
-    case = Case(text=text, detail=desc, timestamp=timestamp)
+    print(text, desc, type)
+    case = Case(type_id=type, text=text, detail=desc, timestamp=timestamp)
     db.session.add(case)
     db.session.commit()
     return redirect(url_for('.index'))

@@ -121,3 +121,15 @@
 - [x] $(this)总是获取到最后那个的问题
     - [] 可能是scripts.html内加载caseCommon.js导致的
     - [x] 先用$(event.target)替代
+- [] 完成tab切换页面
+- [x] db migrate Target database is not up to date
+    - [x] 之前删除migration时没有同事删除db.sqlite3，导致version没有写入
+- [x] deploy插入superadmin
+- [] 增加case type选项
+    - [x] modal
+    - [] view
+    - [] 前端
+        - [x] 重新布局
+        - [] 获取选中值$
+         $("#select_yx").find("option:selected") 
+- [] 设置case必须有内容validator

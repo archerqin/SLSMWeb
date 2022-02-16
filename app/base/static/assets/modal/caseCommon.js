@@ -42,10 +42,13 @@ $(document).ready(function() {
         $.fn.caseSubmit = function() {
             caseText = $("#caseText0").val()
             caseDesc = $("#caseDesc0").val()
+            caseType = $("#case_type").find("option:selected").index()
+            console.log(caseType)
             var data = {
                 data: JSON.stringify({
                     'text': caseText,
                     'desc': caseDesc,
+                    'type': 1,
                 }),
             };
             $.ajax({
