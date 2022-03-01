@@ -21,10 +21,22 @@ class Role(db.Model):
     @staticmethod
     def insert_roles():
         roles = {
-            'User':(Permission.COMMIT |
-                    Permission.FINISH, True),
+            'SuperAdmin':(0xff, False),
             'Administrator':(0xff, False),
-            'SuperAdmin':(0xff, False)
+            'User':(Permission.COMMIT |
+                    Permission.FINISH, True),            
+            '策划':(Permission.COMMIT |
+                    Permission.FINISH, True),
+            '前端':(Permission.COMMIT |
+                    Permission.FINISH, True),
+            '后端':(Permission.COMMIT |
+                    Permission.FINISH, True),
+            '测试':(Permission.COMMIT |
+                    Permission.FINISH, True),
+            '运营':(Permission.COMMIT |
+                    Permission.FINISH, True),
+            '美术':(Permission.COMMIT |
+                    Permission.FINISH, True)
         }
         for r in roles:
             role = Role.query.filter_by(name=r).first()
@@ -44,6 +56,7 @@ class User(db.Model, UserMixin):
 
     id = Column(Integer, primary_key=True)
     username = Column(String, unique=True)
+    name = Column(String, unique=True)
     password = Column(BINARY)
     role_id = Column(String, ForeignKey('roles.role_id'))
 
@@ -100,12 +113,17 @@ class Case(db.Model):
     state = db.Column(db.Integer, default=0)
     timestamp = db.Column(db.Integer, index=True, default=int(datetime.timestamp(datetime.now())))
 
-##版本号
+##版本号-->case_id 一对多
 class Version(db.Model): 
     __tablename__ = 'versions'
     version_id = db.Column(db.Integer, primary_key=True)
     version_name = db.Column(db.String(32))
-
+    cases = db.relationship('Case',
+                            backref = 'cases',
+                            lazy = 'dynamic')
+    @staticmethod
+    def versionCase():
+        pass
 ##
 class Class(db.Model):  
     __tablename__ = 'classes'

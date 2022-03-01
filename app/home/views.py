@@ -32,8 +32,8 @@ def show_cases(flag):
         print("show_cases flag1")
         return resp
 
-@blueprint.route('/caseall')
-def case_all():
+@blueprint.route('/verinfo')
+def ver_info():
     resp = make_response(redirect(url_for('.index')))
     resp.set_cookie('case_type','0',max_age=30*24*60*60)
 
@@ -95,3 +95,9 @@ def autotest():
 @login_required
 def testcase():
     return render_template('testcase.html', segment='testcase')
+
+
+@blueprint.route('/settings')
+@login_required
+def settings():
+    return render_template('settings.html', segment='settings')
