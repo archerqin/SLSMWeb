@@ -101,3 +101,16 @@ def testcase():
 @login_required
 def settings():
     return render_template('settings.html', segment='settings')
+
+@blueprint.route('add_user',methods=['GET', 'POST'])
+@login_required
+def add_user():
+    data = json.loads(request.form.get('data'))
+    username = data['username']
+    realname = data['name']
+    rolechecks = data['rolechecks']
+    user = User.query.filter_by(username=username).first()
+    if user is None:
+        user = User(username=u)
+        user.password = users[u][0]
+        user.role_id = users[u][1]

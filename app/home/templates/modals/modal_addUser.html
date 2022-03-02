@@ -1,0 +1,79 @@
+<!-- Modal -->
+<div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModalLabel" aria-hidden="false">
+    <div class="modal-dialog" style="margin-top:20%;">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addUserModalLabel">增加项目成员</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body" style="overflow-y: scroll">
+            <form>
+                <div class="form-group">
+                    <label for="username" class="bmd-label-floating">账号名(gz0000)</label>
+                    <input id="username" type="text" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="name" class="bmd-label-floating">姓名</label>
+                    <input id="name" type="text" class="form-control">
+                </div>
+                <div class="form-check">
+                    <label class="form-check-label" name="roleCheck">
+                        <input class="form-check-input" type="checkbox">
+                        管理员
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                    <label class="form-check-label" name="roleCheck">
+                        <input class="form-check-input" type="checkbox">
+                        策划
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                    <label class="form-check-label" name="roleCheck">
+                        <input class="form-check-input" type="checkbox">
+                        前端
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                    <label class="form-check-label" name="roleCheck">
+                        <input class="form-check-input" type="checkbox">
+                        后端
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                    <label class="form-check-label" name="roleCheck">
+                        <input class="form-check-input" type="checkbox">
+                        测试
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                    <label class="form-check-label" name="roleCheck">
+                        <input class="form-check-input" type="checkbox">
+                        运营
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                    <label class="form-check-label" name="roleCheck">
+                        <input class="form-check-input" type="checkbox">
+                        美术
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                    </label>
+                </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+            <button id="addUserCommit" type="submit" class="btn btn-primary" data-dismiss="modal">提交</button>
+        </div>
+        </div>
+    </div>
+</div>
