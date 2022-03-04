@@ -6,6 +6,8 @@ from app import db, login_manager
 
 from app.base.util import hash_pass
 
+default_pass = hash_pass("123456")
+
 class Permission:
     COMMIT = 0x01
     FINISH = 0x02

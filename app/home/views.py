@@ -5,7 +5,7 @@ from flask import render_template, redirect, url_for, request, make_response, js
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
-from ..base.models import Case
+from ..base.models import Case,User,default_pass
 from .. import db
 import time
 
@@ -102,7 +102,7 @@ def testcase():
 def settings():
     return render_template('settings.html', segment='settings')
 
-@blueprint.route('add_user',methods=['GET', 'POST'])
+@blueprint.route('/add_user',methods=['GET', 'POST'])
 @login_required
 def add_user():
     data = json.loads(request.form.get('data'))
@@ -110,7 +110,22 @@ def add_user():
     realname = data['name']
     rolechecks = data['rolechecks']
     user = User.query.filter_by(username=username).first()
+    print(user)
     if user is None:
-        user = User(username=u)
-        user.password = users[u][0]
-        user.role_id = users[u][1]
+        user = User(username=username,name=realname,password=default_pass,role_id=rolechecks)
+    else:
+        print("已存在该帐号")
+        flash("已存在该帐号")
+    # db.session.add(user)
+    # db.session.commit()
+    users=User.query.all()
+    allusers = {}
+    for u in users:
+        u1 = {}
+        u1["username"] = u.username
+        u1["name"] = u.name
+        u1["role_id"] = u.role_id
+        
+
+    print(allusers)
+    return jsonify(allusers)

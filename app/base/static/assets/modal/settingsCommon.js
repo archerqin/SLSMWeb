@@ -18,9 +18,12 @@ $(document).ready(function() {
             userName = $("#username").val();
             realName = $("#name").val();
             var checkids = [];
-            $("input[name='ckb']:checked").each(function(i){
-                checkids[i] = $(this).val();
+            $("input[name='roleCheck']").each(function(i){
+                checkids[i] = $(this).prop("checked");
             });
+            console.log(userName)
+            console.log(realName)
+            console.log(checkids)
 
             var data = {
                 data: JSON.stringify({
@@ -36,8 +39,7 @@ $(document).ready(function() {
                 data:data,
                 datatype: 'json',
                 success: function(data){
-                    console.log(location.href);
-                    window.location.href = "index"
+                    console.log(data);
                 }
             })
         };
