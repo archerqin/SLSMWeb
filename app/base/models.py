@@ -8,6 +8,13 @@ from app.base.util import hash_pass
 
 default_pass = hash_pass("123456")
 
+class EntityBase(object):
+    def to_json(self):
+        fields = self.__dict__
+        if "_sa_instance_state" in fields:
+            del fields["_sa_instance_state"]       
+        return fields
+
 class Permission:
     COMMIT = 0x01
     FINISH = 0x02
