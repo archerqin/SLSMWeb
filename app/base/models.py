@@ -1,19 +1,13 @@
 from flask_login import UserMixin
 from sqlalchemy import BINARY, Column, Integer, String, DateTime, ForeignKey
 from datetime import datetime
+import json
 
 from app import db, login_manager
 
 from app.base.util import hash_pass
 
 default_pass = hash_pass("123456")
-
-class EntityBase(object):
-    def to_json(self):
-        fields = self.__dict__
-        if "_sa_instance_state" in fields:
-            del fields["_sa_instance_state"]       
-        return fields
 
 class Permission:
     COMMIT = 0x01
@@ -81,16 +75,23 @@ class User(db.Model, UserMixin):
     @staticmethod
     def create_superadmin():
         users = {
-            'gz0645': (hash_pass('112358'),3)
+            'gz0645': (hash_pass('112358'),'秦浩翔',json.dumps([3]))
         }
         for u in users:
             user = User.query.filter_by(username=u).first()
             if user is None:
                 user = User(username=u)
             user.password = users[u][0]
-            user.role_id = users[u][1]
+            user.name = users[u][1]
+            user.role_id = users[u][2]
             db.session.add(user)
         db.session.commit()
+
+    def to_json(self):
+        fields = self.__dict__
+        if "_sa_instance_state" in fields:
+            del fields["_sa_instance_state"]       
+        return fields
 
     def __repr__(self):
         # return str(self.username)

@@ -5,7 +5,7 @@ from flask import render_template, redirect, url_for, request, make_response, js
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
-from ..base.models import EntityBase,Case,User,default_pass
+from ..base.models import Case,User,default_pass
 from .. import db
 import time
 
@@ -134,6 +134,13 @@ def add_user():
 @login_required
 def get_users():
     users=User.query.all()
-    usersjson = EntityBase.to_json(users)
-    print(usersjson)
-    return jsonify(usersjson)
+    allusers = []
+    for u in users:
+        u1 = {}
+        u1["username"] = u.username
+        u1["name"] = u.name
+        u1["role_id"] = u.role_id
+        allusers.append(u1)
+
+    print(allusers)
+    return jsonify(allusers)
