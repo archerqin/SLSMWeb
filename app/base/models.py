@@ -8,18 +8,30 @@ from app import db, login_manager
 from app.base.util import hash_pass
 
 default_pass = hash_pass("123456")
+super_admins = {
+            'gz0645': ('112358','秦浩翔','[3]')
+        }
 
 class Permission:
     COMMIT = 0x01
     FINISH = 0x02
     ADMINISTRATOR = 0x80
 
+class UserRole(db.Model):
+    __tablename__ = 'userroles'
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, ForeignKey('users.id'))
+    role_id = db.Column(db.Integer, ForeignKey('roles.role_id'))
+
 class Role(db.Model):
     __tablename__ = 'roles'
     role_id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(64), unique=True)
     permission = db.Column(db.Integer)
-    user = db.relationship('User', backref='role', lazy='dynamic')
+    userroles = db.relationship('UserRole',
+                            foreign_keys=[UserRole.role_id],
+                            backref='role',
+                            lazy='dynamic')
 
     @staticmethod
     def insert_roles():
@@ -50,6 +62,8 @@ class Role(db.Model):
             db.session.add(role)
         db.session.commit()
     
+    
+
     def _repr__(self):
         return '<Role %r>' % self.name
 
@@ -61,7 +75,10 @@ class User(db.Model, UserMixin):
     username = Column(String, unique=True)
     name = Column(String, unique=True)
     password = Column(BINARY)
-    role_id = Column(String, ForeignKey('roles.role_id'))
+    userroles = db.relationship('UserRole',
+                            foreign_keys=[UserRole.user_id],
+                            backref='user',
+                            lazy='dynamic')
 
     def __init__(self, **kwargs):
         for property, value in kwargs.items():
@@ -72,26 +89,40 @@ class User(db.Model, UserMixin):
 
             setattr(self, property, value)
 
+    def do_user_has_role(self, role):
+        return self.userroles.filter_by(role_id=role.id).first() is not None
+
     @staticmethod
     def create_superadmin():
-        users = {
-            'gz0645': (hash_pass('112358'),'秦浩翔',json.dumps([3]))
-        }
-        for u in users:
+        for u in super_admins:
             user = User.query.filter_by(username=u).first()
-            if user is None:
-                user = User(username=u)
-            user.password = users[u][0]
-            user.name = users[u][1]
-            user.role_id = users[u][2]
-            db.session.add(user)
-        db.session.commit()
+            rolelist = json.loads(super_admins[u][2])
 
-    def to_json(self):
-        fields = self.__dict__
-        if "_sa_instance_state" in fields:
-            del fields["_sa_instance_state"]       
-        return fields
+            if user is None:
+                user = User(username=u, password=super_admins[u][0], name=super_admins[u][1])
+                for r_id in rolelist:
+                    role = Role.query.filter_by(role_id=r_id).first()
+                    UserRole(user=user, role=role)
+            ##相当于可以重置除username外的其他信息
+            ##如果发现配置角色中没有某个职位，则删除
+            else:
+                # user = User(password=super_admins[u][0], name=super_admins[u][1])
+                oldRoleList =[ur.role_id for ur in UserRole.query.filter_by(user_id=user.id)]
+                print(oldRoleList)
+                for oldr in oldRoleList:
+                    if oldr not in rolelist:
+                        
+                        db.session.delete()
+                # for r_id in rolelist:
+                #     role = Role.query.filter_by(role_id=r_id).first()
+                #     if do_user_has_role(role):
+                #     UserRole(user=user, role=role)
+            # db.session.add(user)
+        # db.session.commit()
+
+    def set_role(self, user):
+        s = self.userroles.filter_by(user_id=user.id)
+        print(s)
 
     def __repr__(self):
         # return str(self.username)
