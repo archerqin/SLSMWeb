@@ -124,11 +124,13 @@ def add_user():
         u1 = {}
         u1["username"] = u.username
         u1["name"] = u.name
-        u1["role_id"] = u.role_id
+        for ur in u.userroles:
+            print(ur.role_id)
+
         
 
     print(allusers)
-    return jsonify(allusers)
+    # return jsonify(allusers)
 
 @blueprint.route('/get_users',methods=['GET', 'POST'])
 @login_required
@@ -139,8 +141,8 @@ def get_users():
         u1 = {}
         u1["username"] = u.username
         u1["name"] = u.name
-        u1["role_id"] = u.role_id
-        allusers.append(u1)
+        for ur in u.userroles:
+            print(ur.role_id)
 
     print(allusers)
     return jsonify(allusers)

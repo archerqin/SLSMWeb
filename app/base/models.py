@@ -9,7 +9,7 @@ from app.base.util import hash_pass
 
 default_pass = hash_pass("123456")
 super_admins = {
-            'gz0645': ('112358','秦浩翔','[3]')
+            'gz0645': ('112358','秦浩翔','[1,2,7]')
         }
 
 class Permission:
@@ -22,6 +22,18 @@ class UserRole(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, ForeignKey('users.id'))
     role_id = db.Column(db.Integer, ForeignKey('roles.role_id'))
+    
+    @staticmethod
+    def set_userrole(uid,rid):
+        ur = UserRole(user_id=uid, role_id=rid)
+        db.session.add(ur)
+        db.session.commit()
+    @staticmethod
+    def unset_userrole(uid,rid):
+        ur = UserRole.query.filter_by(user_id=uid, role_id=rid).first()
+        db.session.delete(ur)
+        db.session.commit()
+
 
 class Role(db.Model):
     __tablename__ = 'roles'
@@ -89,20 +101,21 @@ class User(db.Model, UserMixin):
 
             setattr(self, property, value)
 
-    def do_user_has_role(self, role):
-        return self.userroles.filter_by(role_id=role.id).first() is not None
+    # def do_user_has_role(self, role):
+    #     return self.userroles.filter_by(role_id=role.id).first() is not None
 
     @staticmethod
     def create_superadmin():
         for u in super_admins:
             user = User.query.filter_by(username=u).first()
             rolelist = json.loads(super_admins[u][2])
+            print(UserRole.query.filter_by(user_id=user.id))
 
             if user is None:
                 user = User(username=u, password=super_admins[u][0], name=super_admins[u][1])
                 for r_id in rolelist:
                     role = Role.query.filter_by(role_id=r_id).first()
-                    UserRole(user=user, role=role)
+                    UserRole.set_userrole(user.id, role.id)
             ##相当于可以重置除username外的其他信息
             ##如果发现配置角色中没有某个职位，则删除
             else:
@@ -111,16 +124,14 @@ class User(db.Model, UserMixin):
                 print(oldRoleList)
                 for oldr in oldRoleList:
                     if oldr not in rolelist:
-                        
-                        db.session.delete()
-                # for r_id in rolelist:
-                #     role = Role.query.filter_by(role_id=r_id).first()
-                #     if do_user_has_role(role):
-                #     UserRole(user=user, role=role)
-            # db.session.add(user)
-        # db.session.commit()
+                        UserRole.unset_userrole(user.id, oldr)
+                for r_id in rolelist:
+                    UserRole.set_userrole(user.id, r_id)
 
-    def set_role(self, user):
+            db.session.add(user)
+        db.session.commit()
+
+    def get_role(self, user):
         s = self.userroles.filter_by(user_id=user.id)
         print(s)
 
