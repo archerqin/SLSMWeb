@@ -109,13 +109,13 @@ class User(db.Model, UserMixin):
         for u in super_admins:
             user = User.query.filter_by(username=u).first()
             rolelist = json.loads(super_admins[u][2])
-            print(UserRole.query.filter_by(user_id=user.id))
+            # print(UserRole.query.filter_by(user_id=user.id))
 
             if user is None:
                 user = User(username=u, password=super_admins[u][0], name=super_admins[u][1])
                 for r_id in rolelist:
                     role = Role.query.filter_by(role_id=r_id).first()
-                    UserRole.set_userrole(user.id, role.id)
+                    UserRole.set_userrole(user.id, role.role_id)
             ##相当于可以重置除username外的其他信息
             ##如果发现配置角色中没有某个职位，则删除
             else:
