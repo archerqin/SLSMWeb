@@ -202,23 +202,10 @@
                           <thead>
                               <th>帐号</th>
                               <th>姓名</th>
+                              <th>操作</th>
                           </thead>
                           <tbody id="crews">
-                              <tr>
-                                  <td>gz0645</td>
-                                  <td>秦浩翔</td>
-                              </tr>
-                              <tr><td class="table-primary" colspan="2">管理员</td></tr>
-                              <tr>
-                                  <td>gz0645</td>
-                                  <td>秦浩翔</td>
-                              <tr>
-                              <tr><td class="table-primary" colspan="2">策划</td></tr>
-                              <tr><td class="table-primary" colspan="2">前端</td></tr>
-                              <tr><td class="table-primary" colspan="2">后端</td></tr>
-                              <tr><td class="table-primary" colspan="2">测试</td></tr>
-                              <tr><td class="table-primary" colspan="2">运营</td></tr>
-                              <tr><td class="table-primary" colspan="2">美术</td></tr>
+                            <!-- ajax返回 -->
                           </tbody>
                       </table>
                   </div>
@@ -230,4 +217,6 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+  <script src="/static/assets/modal/settingsCommon.js"></script>
+{% endblock javascripts %}

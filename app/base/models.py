@@ -7,10 +7,19 @@ from app import db, login_manager
 
 from app.base.util import hash_pass
 
-default_pass = hash_pass("123456")
+default_pass = "123456"
 super_admins = {
             'gz0645': ('112358','秦浩翔','[1,2,7]')
         }
+role_check = {
+    1: 2,
+    2: 4,
+    3: 5,
+    4: 6,
+    5: 7,
+    6: 8,
+    7: 9,
+}
 
 class Permission:
     COMMIT = 0x01

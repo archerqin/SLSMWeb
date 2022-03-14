@@ -5,7 +5,7 @@ from flask import render_template, redirect, url_for, request, make_response, js
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
-from ..base.models import Case,User,default_pass
+from ..base.models import Case,User,UserRole,default_pass,role_check
 from .. import db
 import time
 
@@ -110,39 +110,43 @@ def add_user():
     realname = data['name']
     rolechecks = data['rolechecks']
     user = User.query.filter_by(username=username).first()
-    print(user)
+    print(user,rolechecks)
     if user is None:
-        user = User(username=username,name=realname,password=default_pass,role_id=rolechecks)
+        user = User(username=username,name=realname,password=default_pass)
     else:
         print("已存在该帐号")
         flash("已存在该帐号")
-    # db.session.add(user)
-    # db.session.commit()
+    db.session.add(user)
+    db.session.commit()
+    for rc in rolechecks:
+        UserRole.set_userrole(user.id, role_check[rc])
     users=User.query.all()
-    allusers = {}
-    for u in users:
-        u1 = {}
-        u1["username"] = u.username
-        u1["name"] = u.name
-        for ur in u.userroles:
-            print(ur.role_id)
-
-        
-
-    print(allusers)
-    # return jsonify(allusers)
+    allusers = []
+    if users:
+        for u in users:
+            u1 = {}
+            u1["username"] = u.username
+            u1["name"] = u.name
+            uroles = []
+            for ur in u.userroles:
+                uroles.append(ur.role_id)
+            u1["uroles"] = uroles
+            allusers.append(u1)
+    return jsonify(allusers)
 
 @blueprint.route('/get_users',methods=['GET', 'POST'])
 @login_required
 def get_users():
     users=User.query.all()
     allusers = []
-    for u in users:
-        u1 = {}
-        u1["username"] = u.username
-        u1["name"] = u.name
-        for ur in u.userroles:
-            print(ur.role_id)
-
-    print(allusers)
+    if users:
+        for u in users:
+            u1 = {}
+            u1["username"] = u.username
+            u1["name"] = u.name
+            uroles = []
+            for ur in u.userroles:
+                uroles.append(ur.role_id)
+            u1["uroles"] = uroles
+            allusers.append(u1)
     return jsonify(allusers)
