@@ -26,6 +26,10 @@ def deploy():
     Role.insert_roles()
     User.create_superadmin()
 
+@manager.command
+def drop():
+    Case.drop_cases()
+
 if __name__ == '__main__':
     manager.run()
 

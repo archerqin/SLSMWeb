@@ -1,6 +1,7 @@
 from flask_login import UserMixin
 from sqlalchemy import BINARY, Column, Integer, String, DateTime, ForeignKey
 from datetime import datetime
+import time
 import json
 
 from app import db, login_manager
@@ -172,7 +173,15 @@ class Case(db.Model):
     class_id = db.Column(db.Integer, db.ForeignKey('classes.class_id'))
     region_id = db.Column(db.Integer, db.ForeignKey('regions.region_id'))
     state = db.Column(db.Integer, default=0)
-    timestamp = db.Column(db.Integer, index=True, default=int(datetime.timestamp(datetime.now())))
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())
+
+    
+    @staticmethod
+    def drop_cases():
+        print("?????")
+        cases = Case.query.all()
+        for case in cases:
+            db.session.delete(case)
 
 ##版本号-->case_id 一对多
 class Version(db.Model): 

@@ -1,12 +1,17 @@
 from flask import Flask
 # from flask_bootstrap import Bootstrap
+from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+from flask_pagedown import PageDown
+
 # from config import config
 from importlib import import_module
 
 # bootstrap = Bootstrap()
 db = SQLAlchemy()
+moment = Moment()
+pagedown = PageDown()
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -15,6 +20,8 @@ login_manager.login_view = 'auth.login'
 def register_extensions(app):
     db.init_app(app)
     login_manager.init_app(app)
+    moment.init_app(app)
+    pagedown.init_app(app)
 
 def register_blueprint(app):
     for module_name in ('base','home'):
@@ -34,8 +41,10 @@ def configure_database(app):
 def create_app(config):
     app = Flask(__name__, static_folder='base/static')
     app.config.from_object(config)
+    
     register_extensions(app)
     register_blueprint(app)
     configure_database(app)
+
     return app
 

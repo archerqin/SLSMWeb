@@ -2,26 +2,29 @@
   {% for case in cases %}
   <tr>
       <td width="4%">
-        <!-- <div class="form-check-inline">
+        <div class="form-check-inline">
           <label class="form-check-label">
             <input class="form-check-input" type="checkbox" value="">
           </label>
-        </div> -->
-        <div class="form-check">
+        </div>
+        <!-- <div class="form-check">
           <label class="form-check-label">
             <input class="form-check-input" type="checkbox" value="">
             <span class="form-check-sign">
               <span class="check"></span>
             </span>
           </label>
-        </div>
+        </div> -->
+      </td>
+      <td width="100">
+        {{ moment(case.timestamp).format('YY-MM-DD HH:MM') }}
       </td>
       <td class="table-primary case-singlebody">{{ case.text}}</td>
-      <td width="13%">
-        <button type="button" class="btn btn-primary btn-link btn-sm">
+      <td width="130">
+        <button type="button" class="btn btn-primary btn-link btn-xs">
           <i class="material-icons">edit</i>
         </button>
-        <button id="buttonDeleteCase{{ case.case_id }}" title="Remove" class="btn btn-danger btn-link btn-sm" data-toggle="modal" data-target="#modalCaseDelete{{ case.case_id }}">
+        <button id="buttonDeleteCase{{ case.case_id }}" title="Remove" class="btn btn-danger btn-link btn-xs" data-toggle="modal" data-target="#modalCaseDelete{{ case.case_id }}">
           <i class="material-icons">close</i>
         </button>
       </td>

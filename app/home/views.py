@@ -61,9 +61,9 @@ def case_commit():
     text = data['text']
     desc = data['desc']
     type = data['type']
-    timestamp = int(time.time())
+    # timestamp = int(time.time())
     print(text, desc, type)
-    case = Case(type_id=type, text=text, detail=desc, timestamp=timestamp)
+    case = Case(type_id=type, text=text, detail=desc)
     db.session.add(case)
     db.session.commit()
     return redirect(url_for('.index'))
