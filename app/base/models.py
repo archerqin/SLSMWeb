@@ -137,6 +137,7 @@ class User(db.Model, UserMixin):
             db.session.add(user)
             for r_id in rolelist:
                 role = Role.query.filter_by(role_id=r_id).first()
+                print(user.id)
                 UserRole.set_userrole(user.id, role.role_id)
         db.session.commit()
 
