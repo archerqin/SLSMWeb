@@ -123,9 +123,7 @@ class User(db.Model, UserMixin):
 
             if user is None:
                 user = User(username=u, password=super_admins[u][0], name=super_admins[u][1])
-                for r_id in rolelist:
-                    role = Role.query.filter_by(role_id=r_id).first()
-                    UserRole.set_userrole(user.id, role.role_id)
+                
             ##相当于可以重置除username外的其他信息
             ##如果发现配置角色中没有某个职位，则删除
             else:
@@ -135,10 +133,11 @@ class User(db.Model, UserMixin):
                 for oldr in oldRoleList:
                     if oldr not in rolelist:
                         UserRole.unset_userrole(user.id, oldr)
-                for r_id in rolelist:
-                    UserRole.set_userrole(user.id, r_id)
 
             db.session.add(user)
+            for r_id in rolelist:
+                role = Role.query.filter_by(role_id=r_id).first()
+                UserRole.set_userrole(user.id, role.role_id)
         db.session.commit()
 
     def get_role(self, user):
