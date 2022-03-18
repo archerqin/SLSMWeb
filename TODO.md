@@ -133,7 +133,6 @@
         - [] 获取选中值$
          $("#select_yx").find("option:selected") 
 - [] 设置case必须有内容validator
-- 
 - [] 默认now的时间显示不对
 - 
 - 系统设置相关

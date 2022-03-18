@@ -1,4 +1,5 @@
 from flask import Flask
+from celery import Celery
 # from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
@@ -38,6 +39,19 @@ def configure_database(app):
     def shutdown_session(exception=None):
         db.session.remove()
 
+##在工厂函数中创建Celery实例，加载配置，并实现Flask程序上下文支持
+def make_celery(app):
+    celery = Celery(__name__, broker=broker_url)
+    celery.config_from_object('celeryconfig')
+
+    class ContextTask(celery.Task):
+        def __call__(self, *args, **kwargs):
+            with app.app_context():
+                return self.run(*args, **kwargs)
+
+    celery.Task = ContextTask
+    return celery
+    
 def create_app(config):
     app = Flask(__name__, static_folder='base/static')
     app.config.from_object(config)

@@ -21,18 +21,19 @@
       </td>
       <td class="table-primary case-singlebody">{{ case.text}}</td>
       <td width="130">
-        <button type="button" class="btn btn-primary btn-link btn-xs">
+        <button id="EditCase{{ case.case_id }}" type="button" class="btn btn-primary btn-link btn-xs">
           <i class="material-icons">edit</i>
         </button>
         <button id="buttonDeleteCase{{ case.case_id }}" title="Remove" class="btn btn-danger btn-link btn-xs" data-toggle="modal" data-target="#modalCaseDelete{{ case.case_id }}">
           <i class="material-icons">close</i>
         </button>
       </td>
+      {% include 'modals/modal_caseCommit.html' %}
       {% include 'modals/modal_caseDelete.html' %}
   </tr>
   
   {% endfor %}
 </tbody>
 {% block scripts %}
-
+  <!-- <script src="/static/assets/modal/caseEdit.js"></script> -->
 {% endblock %}

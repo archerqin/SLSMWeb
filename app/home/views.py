@@ -53,7 +53,7 @@ def case_3():
     resp.set_cookie('case_type','3',max_age=30*24*60*60)
 
 @blueprint.route('/case_commit', methods=['GET', 'POST'])
-def case_commit():
+def case_commit():##可以把edit也写在这里，判断有没有id
     print("case_commit")
     # resp = make_response(redirect(url_for('.index')))
     # return resp
@@ -62,7 +62,6 @@ def case_commit():
     desc = data['desc']
     type = data['type']
     # timestamp = int(time.time())
-    print(text, desc, type)
     case = Case(type_id=type, text=text, detail=desc)
     db.session.add(case)
     db.session.commit()
@@ -85,6 +84,18 @@ def case_delete():
     page = request.args.get('page', 1, type=int)
 
     return redirect(url_for('.index', case_id=case.case_id, page=page))
+
+@blueprint.route('/set_case_info', methods=['GET', 'POST'])
+def set_case_info():
+    data = json.loads(request.form.get('data'))
+    case_id = data['case_id']
+    case = Case.query.get_or_404(case_id)
+    caseinfo = {"case_id":case.case_id,
+                "text":case.text,
+                "detail":case.detail,
+                }
+    return jsonify(caseinfo)
+
 
 @blueprint.route('/autotest')
 @login_required
