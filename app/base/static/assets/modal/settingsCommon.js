@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    ////setting界面预设信息获取
+    ////setting界面预设信息获取                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     $(function(){
         console.log("onload")
         $.ajax({
@@ -50,8 +50,22 @@ $(document).ready(function() {
                 '<tr><td class="table-primary" colspan="3">美术</td></tr>' + ms
                 $('#crews').html(hdata)
                 
-            }}
-        )
+            }
+        })
+    });
+    // 加载版本信息
+    $(function(){
+        $.ajax({
+            type: "POST",
+            url: "/get_versions",
+            cache: false,
+            // data:data,
+            datatype: 'json',
+            success: function(data){
+                console.log(data);
+            }
+
+        });
     });
 
     //// 点击触发加载

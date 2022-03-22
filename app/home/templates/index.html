@@ -53,19 +53,19 @@
                 <span class="nav-tabs-title">Tasks:</span>
                 <ul class="nav nav-tabs" data-tabs="tabs">
                   <li class="nav-item">
-                    <a class="nav-link active" href="{{ url_for('.show_cases', flag=1) }}" data-toggle="tab">
+                    <a {% if case_type == 1 %} class="nav-link active"{% else %}class="nav-link"{% endif %} href="{{ url_for('.case_1') }}">
                       <i class="material-icons">bug_report</i> Bugs
                       <div class="ripple-container"></div>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#messages" data-toggle="tab">
+                    <a {% if case_type == 2 %} class="nav-link active"{% else %}class="nav-link"{% endif %} href="{{ url_for('.case_2') }}">
                       <i class="material-icons">code</i> 策划调整
                       <div class="ripple-container"></div>
                     </a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="#settings" data-toggle="tab">
+                    <a {% if case_type == 3 %} class="nav-link active"{% else %}class="nav-link"{% endif %} href="{{ url_for('.case_3') }}">
                       <i class="material-icons">cloud</i> 程序优化
                       <div class="ripple-container"></div>
                     </a>

@@ -1,6 +1,8 @@
 $(document).ready(function() {
     $('#caseCommit').click(function() {
-        console.log("1111")
+        var case_type = $.cookie('case_type')
+        $("#case_type option[value='case"+case_type+"']").attr("selected", true)
+
         $('#exampleModal').modal('show')
         // success: function (data) {
         //     $("#post").empty()
@@ -42,13 +44,13 @@ $(document).ready(function() {
         $.fn.caseSubmit = function() {
             caseText = $("#caseText0").val()
             caseDesc = $("#caseDesc0").val()
-            caseType = $("#case_type").find("option:selected").index()
+            caseType = $("#case_type").find("option:selected").index() + 1
             console.log(caseType)
             var data = {
                 data: JSON.stringify({
                     'text': caseText,
                     'desc': caseDesc,
-                    'type': 1,
+                    'type': caseType,
                 }),
             };
             $.ajax({

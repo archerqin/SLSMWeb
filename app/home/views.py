@@ -5,52 +5,42 @@ from flask import render_template, redirect, url_for, request, make_response, js
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
-from ..base.models import Case,User,UserRole,default_pass,role_check
+from ..base.models import Case,User,UserRole,Version,default_pass,role_check
 from .. import db
 import time
 
 @blueprint.route('/index', methods=['GET','POST'])
 @login_required
 def index():
-    # cases = Case.query.all()
-    query = Case.query
-    # for case in cases:
-    #     print(case)
-
     page = request.args.get('page', 1, type=int)
-    print("index:",page)
+    # case_type = 1
+    if current_user.is_authenticated:
+        case_type = int(request.cookies.get('case_type', '') or 1)
+    query = Case.query.filter(Case.type_id == case_type)
+
     pagination = query.order_by(Case.timestamp.desc()).paginate(
         page, per_page=5, error_out=False)
     cases = pagination.items
 
-    return render_template('index.html', cases=cases, pagination=pagination)
-
-@blueprint.route('/case/flag=<int:flag>')
-def show_cases(flag):
-    if flag == 1:
-        resp = make_response(redirect(url_for('.index')))
-        print("show_cases flag1")
-        return resp
-
-@blueprint.route('/verinfo')
-def ver_info():
-    resp = make_response(redirect(url_for('.index')))
-    resp.set_cookie('case_type','0',max_age=30*24*60*60)
+    return render_template('index.html', cases=cases, pagination=pagination, case_type=case_type)
 
 @blueprint.route('/case1') ##bug
 def case_1():
     resp = make_response(redirect(url_for('.index')))
-    resp.set_cookie('case_type','1',max_age=30*24*60*60)
+    resp.set_cookie('case_type', '1', max_age=30*24*60*60)
+    return resp
 
 @blueprint.route('/case2') ##策划修改
 def case_2():
     resp = make_response(redirect(url_for('.index')))
-    resp.set_cookie('case_type','2',max_age=30*24*60*60)
+    resp.set_cookie('case_type', '2', max_age=30*24*60*60)
+    return resp
 
 @blueprint.route('/case3') ##程序优化
 def case_3():
     resp = make_response(redirect(url_for('.index')))
-    resp.set_cookie('case_type','3',max_age=30*24*60*60)
+    resp.set_cookie('case_type', '3', max_age=30*24*60*60)
+    return resp
 
 @blueprint.route('/case_commit', methods=['GET', 'POST'])
 def case_commit():##可以把edit也写在这里，判断有没有id
@@ -161,3 +151,11 @@ def get_users():
             u1["uroles"] = uroles
             allusers.append(u1)
     return jsonify(allusers)
+
+@blueprint.route('/get_versions',methods=['GET', 'POST'])
+@login_required
+def get_versions():
+    versions=Version.query.all()
+    allvers = []
+    
+    return jsonify(allvers)
