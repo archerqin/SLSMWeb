@@ -1,3 +1,8 @@
+[git]
+git add .
+git commit -m '20220313'
+git push
+
 [sqlalchemy]
 
 
@@ -30,3 +35,10 @@ https://www.cnblogs.com/lab-zj/p/12612487.html
 [sync]
 https://www.jianshu.com/p/8f2fa6f10496
 https://www.cnblogs.com/liyongsan/p/11039551.html Celery
+
+在form下添加<button>元素，点击会刷新本页
+
+input text关掉记忆autocomplete="off"
+
+[pandoc]
+python模块，将markdown转为doc

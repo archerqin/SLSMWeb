@@ -15,29 +15,30 @@
                   <p class="card-category">版本管理</p>
                 </div>
                 <div class="card-body">
-                  <form>
-                    <div class="row">
-                      <div class="col-md-4">
-                        <table class="table-striped table-hover" style="table-layout:fixed" width="100%">
-                          <thead>
-                              <th>大版本</th>
-                              <th>前端版本</th>
-                              <th>日期</th>
-                          </thead>
-                          <tbody id="">
-                            <!-- ajax返回 -->
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>>
-                    <button type="submit" class="btn btn-sm btn-info pull-right">增加小版本</button>
-                    <button type="submit" class="btn btn-sm btn-danger pull-right">增加大版本</button>
-                    <div class="clearfix"></div>
-                  </form>
+                  <div class="row">
+                    <div class="col-md-4">
+                      <table class="table-striped table-hover" style="table-layout:fixed" width="100%">
+                        <thead>
+                            <th>大版本</th>
+                            <th>前端版本</th>
+                            <th>日期</th>
+                        </thead>
+                        <tbody id="verlist">
+                          <!-- ajax返回 -->
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <button id="addver_1" class="btn btn-sm btn-info pull-right">增加小版本</button>
+                  <button id="addver_2" class="btn btn-sm btn-danger pull-right">增加大版本</button>
+                  
+                  <div class="clearfix"></div>
+                  {% include 'modals/modal_addVersion.html' %}
                 </div>
               </div>
             </div>
-            <div class="row">
+          </div>
+            <!-- <div class="row">
                 <div class="card">
                   <div class="card-header card-header-primary">
                     <h4 class="card-title">Settings</h4>
@@ -124,7 +125,7 @@
                   </div>
                 </div>
             </div>
-          </div>
+          </div> -->
           <div class="col-md-4">
             <div>
                 <div class="card">

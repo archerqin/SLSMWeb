@@ -40,7 +40,7 @@ def configure_database(app):
         db.session.remove()
 
 ##在工厂函数中创建Celery实例，加载配置，并实现Flask程序上下文支持
-def make_celery(app):
+def register_celery(app):
     celery = Celery(__name__, broker=broker_url)
     celery.config_from_object('celeryconfig')
 
@@ -50,8 +50,7 @@ def make_celery(app):
                 return self.run(*args, **kwargs)
 
     celery.Task = ContextTask
-    return celery
-    
+
 def create_app(config):
     app = Flask(__name__, static_folder='base/static')
     app.config.from_object(config)

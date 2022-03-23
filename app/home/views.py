@@ -7,7 +7,8 @@ from app import login_manager
 from jinja2 import TemplateNotFound
 from ..base.models import Case,User,UserRole,Version,default_pass,role_check
 from .. import db
-import time
+from app.base.util import up_version,get_ver_lg
+from datetime import datetime
 
 @blueprint.route('/index', methods=['GET','POST'])
 @login_required
@@ -155,7 +156,48 @@ def get_users():
 @blueprint.route('/get_versions',methods=['GET', 'POST'])
 @login_required
 def get_versions():
-    versions=Version.query.all()
+    versions=Version.query.order_by(Version.version_id.desc()).limit(10).all()
     allvers = []
+    if versions:
+        for ver in versions:
+            v = {}
+            v["verlg"] = get_ver_lg(ver.version_name)
+            v["vername"] = ver.version_name
+            v["timestamp"] = ver.timestamp.strftime('%Y-%M-%D')
+            allvers.append(v)
+    
+    return jsonify(allvers)
+
+@blueprint.route('/gen_version/<int:typeID>',methods=['GET', 'POST'])
+@login_required
+def gen_version(typeID):
+    last_version=Version.query.order_by(Version.version_id.desc()).first()
+    print(last_version)
+    if last_version:
+        new_version = up_version(last_version.version_name,typeID)
+    else:
+        new_version="1.0.0.000"
+
+    return new_version
+
+@blueprint.route('/add_version',methods=['GET', 'POST'])
+@login_required
+def add_version():
+    data = json.loads(request.form.get('data'))
+    vername = data['vername']
+    new_version = Version(version_name=vername)
+    db.session.add(new_version)
+    db.session.commit()
+
+    versions=Version.query.order_by(Version.version_id.desc()).limit(10).all()
+    allvers = []
+    if versions:
+        for ver in versions:
+            v = {}
+            v["verlg"] = get_ver_lg(ver.version_name)
+            v["vername"] = ver.version_name
+            print(type(ver.timestamp))
+            v["timestamp"] = ver.timestamp.strftime('%Y-%M-%D')
+            allvers.append(v)
     
     return jsonify(allvers)
