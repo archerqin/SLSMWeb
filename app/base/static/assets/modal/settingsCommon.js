@@ -145,9 +145,11 @@ $(document).ready(function() {
     // 提交新版本号
     $('#addVerCommit').click(function() {
         version_name = $("#version_name").val()
+        version_desc = $("#version_desc").val()
         var data = {
             data: JSON.stringify({
                 'vername':version_name,
+                'verdesc':version_desc,
             })
         };
         $.ajax({    

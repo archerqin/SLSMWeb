@@ -185,7 +185,8 @@ def gen_version(typeID):
 def add_version():
     data = json.loads(request.form.get('data'))
     vername = data['vername']
-    new_version = Version(version_name=vername)
+    verdesc = data['verdesc']
+    new_version = Version(version_name=vername, desc=verdesc)
     db.session.add(new_version)
     db.session.commit()
 
@@ -196,6 +197,7 @@ def add_version():
             v = {}
             v["verlg"] = get_ver_lg(ver.version_name)
             v["vername"] = ver.version_name
+            v["verdesc"] = ver.desc
             print(type(ver.timestamp))
             v["timestamp"] = ver.timestamp.strftime('%Y-%M-%D')
             allvers.append(v)
