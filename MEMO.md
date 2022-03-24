@@ -39,6 +39,12 @@ https://www.cnblogs.com/liyongsan/p/11039551.html Celery
 在form下添加<button>元素，点击会刷新本页
 
 input text关掉记忆autocomplete="off"
+不能把click事件直接绑定到a标签上
+
+ajax动态生成的元素无法绑定click，需要将时间委托到body或父元素，等事件冒泡到父元素再处理
 
 [pandoc]
 python模块，将markdown转为doc
+
+[material_icons]
+https://fonts.google.com/icons?selected=Material+Icons

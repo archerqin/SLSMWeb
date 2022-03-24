@@ -188,6 +188,7 @@ class Version(db.Model):
     __tablename__ = 'versions'
     version_id = db.Column(db.Integer, primary_key=True)
     version_name = db.Column(db.String(32))
+    desc = db.Column(db.Text, default="")
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
     cases = db.relationship('Case',
                             backref = 'cases',

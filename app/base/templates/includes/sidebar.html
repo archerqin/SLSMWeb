@@ -1,8 +1,8 @@
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="/static/assets/img/sidebar-1.jpg">
       <div class="logo">
         <a target="_blank" rel="noopener noreferrer" 
-           href="https://www.creative-tim.com/product/material-dashboard-flask" class="simple-text logo-normal">
-          Flask Dashboard
+           href="#" class="simple-text logo-normal">
+          YF5测试平台
         </a>
       </div>
       <div class="sidebar-wrapper">
@@ -12,13 +12,25 @@
           {% if current_user.is_authenticated %}
           <li class="nav-item {% if 'index' in segment %} active {% endif %}">
             <a class="nav-link" href="/">
-              <i class="material-icons">dashboard</i>
-              <p>仪表盘</p>
+              <i class="material-icons">space_dashboard</i>
+              <p>版本内容</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+            <a class="nav-link" href="/">
+              <i class="material-icons">view_list</i>
+              <p>线上修改记录</p>
+            </a>
+          </li>
+          <li class="nav-item {% if 'index' in segment %} active {% endif %}">
+            <a class="nav-link" href="/">
+              <i class="material-icons">event</i>
+              <p>定时任务</p>
             </a>
           </li>
           <li class="nav-item {% if 'page-user' in segment %} active {% endif %}">
             <a class="nav-link" href="/autotest">
-              <i class="material-icons">person</i>
+              <i class="material-icons">code</i>
               <p>自动化</p>
             </a>
           </li>

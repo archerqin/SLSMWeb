@@ -161,9 +161,11 @@ def get_versions():
     if versions:
         for ver in versions:
             v = {}
+            v["verid"] = ver.version_id
             v["verlg"] = get_ver_lg(ver.version_name)
             v["vername"] = ver.version_name
-            v["timestamp"] = ver.timestamp.strftime('%Y-%M-%D')
+            v["verdesc"] = ver.desc
+            v["timestamp"] = ver.timestamp.strftime('%g-%m-%d')
             allvers.append(v)
     
     return jsonify(allvers)
@@ -195,11 +197,20 @@ def add_version():
     if versions:
         for ver in versions:
             v = {}
+            v["verid"] = ver.version_id
             v["verlg"] = get_ver_lg(ver.version_name)
             v["vername"] = ver.version_name
             v["verdesc"] = ver.desc
-            print(type(ver.timestamp))
-            v["timestamp"] = ver.timestamp.strftime('%Y-%M-%D')
+            v["timestamp"] = ver.timestamp.strftime('%g-%m-%d')
             allvers.append(v)
     
     return jsonify(allvers)
+
+@blueprint.route('/get_verdesc/<int:verID>',methods=['GET', 'POST'])
+@login_required
+def get_verdesc(verID):
+    ver = Version.query.get_or_404(verID)
+    verinfo = {}
+    verinfo["vername"] = ver.version_name
+    verinfo["verdesc"] = ver.desc or ""
+    return verinfo

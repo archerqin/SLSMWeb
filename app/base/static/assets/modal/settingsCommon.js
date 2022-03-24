@@ -68,15 +68,20 @@ $(document).ready(function() {
         '<tr><td class="table-primary" colspan="2">美术</td></tr>' + ms
         $('#crews').html(hdata)
     }
+    // verlist全局变量
+    var verList=[];
     // 重置版本verison列表信息
     function set_verlist(data){
+        verList=data;
         var verlist = ""
         console.log(data)
         for (var ver in data) {
-            verlist += "<tr><td>"+data[ver].verlg+"</td><td><a href='#'>"
-            +data[ver].vername+"</a></td><td>"+data[ver].timestamp+"</td></tr>"
+            verlist += "<tr><td>"+data[ver].verlg+"</td><td><a href='#'><div "+"id='verID2Desc"+data[ver].verid+"'>" 
+            +data[ver].vername+"</div></a></td><td>"+data[ver].timestamp+"</td></tr>"
         }
         $('#verlist').html(verlist)
+        console.log(data[0].verdesc)
+        $('#onVerDesc').val(data[0].vername+"版本信息\n"+data[0].verdesc)
     }
 
     //// 点击触发加载
@@ -142,6 +147,7 @@ $(document).ready(function() {
         $('#addVerModal').modal('show')
 
     });
+
     // 提交新版本号
     $('#addVerCommit').click(function() {
         version_name = $("#version_name").val()
@@ -162,6 +168,23 @@ $(document).ready(function() {
                 set_verlist(data)
             }
         })
+    });
+    //根据versionname上的id显示具体desc
+    $('body').on("click", '[id^=verID2Desc]',function() {
+        verID = $(this).attr("id").substring(10)
+        console.log(verID)
+        $.ajax({
+            type: "POST",
+            url: "/get_verdesc/"+verID,
+            cache: false,
+            // data:data,
+            datatype: 'json',
+            success: function(data){
+                console.log('clickverdesc')
+                $("#onVerDesc").val(data["vername"]+"版本信息\n"+data["verdesc"])
+            }
+
+        });
     });
     
 });
