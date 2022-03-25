@@ -1,0 +1,57 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} @_@ {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+{% for ver in versions %}
+
+<div class="row">
+    <div class="col-lg-8 col-md-8">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <h4 class="card-title">{{ ver.version_name }}版本更新内容</h4>
+                <p class="card-category">{{ moment(ver.timestamp).format('YYYY-MM-DD HH:MM') }}</p>
+            </div>
+            <div class="card-body table-responsive">
+            <table class="table table-hover">
+                <thead class="text-warning">
+                <th width="50" >序号</th>
+                <th>内容</th>
+                <th>描述</th>
+                </thead>
+                <tbody id="ver_overview">
+                    {% for vinfo in ver.cases %}
+                        <th>{{ loop.index }}</th>
+                        <th>vinfo.text</th>
+                        <th>vinfo.detail</th>
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block scripts %}
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
+    });
+  </script>
+
+{{ super() }}
+
+{{ pagedown.include_pagedown() }}
+
+{% endblock %}

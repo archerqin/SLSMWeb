@@ -13,6 +13,13 @@ from datetime import datetime
 @blueprint.route('/index', methods=['GET','POST'])
 @login_required
 def index():
+    versions = Version.query.order_by(Version.timestamp.desc()).limit(3).all()
+
+    return render_template('version-overview.html', versions=versions, segment='index')
+
+@blueprint.route('/case_online', methods=['GET','POST'])
+@login_required
+def case_online():
     page = request.args.get('page', 1, type=int)
     # case_type = 1
     if current_user.is_authenticated:
@@ -23,23 +30,23 @@ def index():
         page, per_page=5, error_out=False)
     cases = pagination.items
 
-    return render_template('index.html', cases=cases, pagination=pagination, case_type=case_type)
+    return render_template('case-online.html', cases=cases, pagination=pagination, case_type=case_type, segment='case_online')
 
 @blueprint.route('/case1') ##bug
 def case_1():
-    resp = make_response(redirect(url_for('.index')))
+    resp = make_response(redirect(url_for('.case_online')))
     resp.set_cookie('case_type', '1', max_age=30*24*60*60)
     return resp
 
 @blueprint.route('/case2') ##策划修改
 def case_2():
-    resp = make_response(redirect(url_for('.index')))
+    resp = make_response(redirect(url_for('.case_online')))
     resp.set_cookie('case_type', '2', max_age=30*24*60*60)
     return resp
 
 @blueprint.route('/case3') ##程序优化
 def case_3():
-    resp = make_response(redirect(url_for('.index')))
+    resp = make_response(redirect(url_for('.case_online')))
     resp.set_cookie('case_type', '3', max_age=30*24*60*60)
     return resp
 
@@ -56,7 +63,7 @@ def case_commit():##可以把edit也写在这里，判断有没有id
     case = Case(type_id=type, text=text, detail=desc)
     db.session.add(case)
     db.session.commit()
-    return redirect(url_for('.index'))
+    return redirect(url_for('.case_online'))
     # return render_template('index.html',data=data)
 
 @blueprint.route('/case_delete', methods=['GET', 'POST'])
@@ -74,7 +81,7 @@ def case_delete():
         flash('删除成功')
     page = request.args.get('page', 1, type=int)
 
-    return redirect(url_for('.index', case_id=case.case_id, page=page))
+    return redirect(url_for('.case_online', case_id=case.case_id, page=page))
 
 @blueprint.route('/set_case_info', methods=['GET', 'POST'])
 def set_case_info():
