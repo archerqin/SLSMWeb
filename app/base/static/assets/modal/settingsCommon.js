@@ -172,7 +172,6 @@ $(document).ready(function() {
     //根据versionname上的id显示具体desc
     $('body').on("click", '[id^=verID2Desc]',function() {
         verID = $(this).attr("id").substring(10)
-        console.log(verID)
         $.ajax({
             type: "POST",
             url: "/get_verdesc/"+verID,
@@ -180,7 +179,6 @@ $(document).ready(function() {
             // data:data,
             datatype: 'json',
             success: function(data){
-                console.log('clickverdesc')
                 $("#onVerDesc").val(data["vername"]+"版本信息\n"+data["verdesc"])
             }
 

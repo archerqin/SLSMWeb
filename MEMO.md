@@ -43,6 +43,9 @@ input text关掉记忆autocomplete="off"
 
 ajax动态生成的元素无法绑定click，需要将时间委托到body或父元素，等事件冒泡到父元素再处理
 
+ajax获取cookie
+$.cookie()
+
 [pandoc]
 python模块，将markdown转为doc
 

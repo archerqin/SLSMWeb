@@ -14,6 +14,7 @@ from datetime import datetime
 @login_required
 def index():
     versions = Version.query.order_by(Version.timestamp.desc()).limit(3).all()
+    print(versions)
 
     return render_template('version-overview.html', versions=versions, segment='index')
 
@@ -56,11 +57,14 @@ def case_commit():##可以把edit也写在这里，判断有没有id
     # resp = make_response(redirect(url_for('.index')))
     # return resp
     data = json.loads(request.form.get('data'))
+    print(data)
     text = data['text']
     desc = data['desc']
     type = data['type']
+    ver = data['ver']
+    print(ver)
     # timestamp = int(time.time())
-    case = Case(type_id=type, text=text, detail=desc)
+    case = Case(type_id=type, text=text, detail=desc, version_id=ver)
     db.session.add(case)
     db.session.commit()
     return redirect(url_for('.case_online'))

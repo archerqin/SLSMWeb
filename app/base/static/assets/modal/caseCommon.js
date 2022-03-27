@@ -2,16 +2,22 @@ $(document).ready(function() {
     $('#caseCommit').click(function() {
         var case_type = $.cookie('case_type')
         $("#case_type option[value='case"+case_type+"']").attr("selected", true)
-
+        $.ajax({
+            type: "POST",
+            url: "/get_versions",
+            cache: false,
+            // data:data,
+            datatype: 'json',
+            success: function (data) {
+                $("#select_ver").empty()
+                $.each(data.slice(0,3),function(index,item){
+                    var opt=$("<option value="+item.verid+">"+item.vername+"</option>")
+                    $("#select_ver").append(opt)
+                });
+            // layer.close(index);
+            }
+        });
         $('#exampleModal').modal('show')
-        // success: function (data) {
-        //     $("#post").empty()
-        //     $.each(data,function(index,item){
-        //         var opt=$("<option value="+item.postId+">"+item.postName+"</option>")
-        //         $("#post").append(opt)
-        //     });
-        //     layer.close(index);
-        // }
     });
 
     $("[id^='confirmCaseDelete'").unbind('click').on('click',function() {
@@ -45,12 +51,13 @@ $(document).ready(function() {
             caseText = $("#caseText0").val()
             caseDesc = $("#caseDesc0").val()
             caseType = $("#case_type").find("option:selected").index() + 1
-            console.log(caseType)
+            caseVer = $("#select_ver").val()
             var data = {
                 data: JSON.stringify({
                     'text': caseText,
                     'desc': caseDesc,
                     'type': caseType,
+                    'ver':caseVer,
                 }),
             };
             $.ajax({
@@ -61,7 +68,7 @@ $(document).ready(function() {
                 datatype: 'json',
                 success: function(data){
                     console.log(location.href);
-                    window.location.href = "index"
+                    window.location.href = "case_online"
                 }
             })
         };
