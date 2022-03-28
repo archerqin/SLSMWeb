@@ -12,6 +12,11 @@ class Config(object):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'db.sqlite3')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
+    # SQLALCHEMY_BINDS = {
+    #     'RXSJ': 'sqlite:///' + os.path.join(basedir, 'dbRX.sqlite3'),
+    #     'Proj2022': 'sqlite:///' + os.path.join(basedir, 'db3.sqlite3'),
+    # }
+
 class ProductionConfig(Config):
     DEBUG = False
 

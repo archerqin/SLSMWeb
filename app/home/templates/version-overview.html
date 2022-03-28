@@ -13,24 +13,26 @@
     <div class="col-lg-8 col-md-8">
         <div class="card">
             <div class="card-header card-header-info">
-                <h4 class="card-title">{{ ver.version_name }}版本更新内容</h4>
+                <h4 class="card-title"><b>{{ ver.version_name }}</b>版本更新内容</h4>
                 <p class="card-category">{{ moment(ver.timestamp).format('YYYY-MM-DD HH:MM') }}</p>
             </div>
             <div class="card-body table-responsive">
-            <table class="table table-hover">
-                <thead class="text-warning">
-                <th width="50" >序号</th>
-                <th>内容</th>
-                <th>描述</th>
-                </thead>
-                <tbody id="ver_overview">
+                <table class="table table-hover">
+                    <thead class="text-warning">
+                    <th width="50" >序号</th>
+                    <th>内容</th>
+                    <th>描述</th>
+                    </thead>
+                    <tbody id="ver_overview">
                     {% for vinfo in ver.cases %}
-                        <th>{{ loop.index }}</th>
-                        <th>vinfo.text</th>
-                        <th>vinfo.detail</th>
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td width="300">{{ vinfo.text }}</td>
+                        <td >{{ vinfo.detail }}</td>
+                    </tr>
                     {% endfor %}
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

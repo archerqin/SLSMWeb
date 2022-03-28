@@ -14,8 +14,6 @@ from datetime import datetime
 @login_required
 def index():
     versions = Version.query.order_by(Version.timestamp.desc()).limit(3).all()
-    print(versions)
-
     return render_template('version-overview.html', versions=versions, segment='index')
 
 @blueprint.route('/case_online', methods=['GET','POST'])
@@ -30,7 +28,6 @@ def case_online():
     pagination = query.order_by(Case.timestamp.desc()).paginate(
         page, per_page=5, error_out=False)
     cases = pagination.items
-
     return render_template('case-online.html', cases=cases, pagination=pagination, case_type=case_type, segment='case_online')
 
 @blueprint.route('/case1') ##bug

@@ -44,7 +44,6 @@ class UserRole(db.Model):
         db.session.delete(ur)
         db.session.commit()
 
-
 class Role(db.Model):
     __tablename__ = 'roles'
     role_id = db.Column(db.Integer, primary_key=True)
@@ -83,11 +82,9 @@ class Role(db.Model):
             print(role)
             db.session.add(role)
         db.session.commit()
-    
-    
-
     def _repr__(self):
         return '<Role %r>' % self.name
+    
 
 class User(db.Model, UserMixin):
 
@@ -160,6 +157,18 @@ def request_loader(request):
     user = User.query.filter_by(username=username).first()
     return user if user else None
 
+##项目
+class Proj(db.Model):
+    __tablename__ = 'proj'
+    proj_id = db.Column(db.Integer, primary_key=True)
+    langs = db.Column(db.Integer, db.ForeignKey('langs.lang_id'))
+
+class Lang(db.Model):
+    __tablename__ = 'langs'
+    lang_id = db.Column(db.Integer, primary_key=True)
+    lang_abbr = db.Column(db.String(32),default="CN")
+    lang_name = db.Column(db.String(32),default="中国大陆")
+
 ##修改case
 class Case(db.Model):  
     __tablename__ = 'cases'
@@ -175,13 +184,12 @@ class Case(db.Model):
     state = db.Column(db.Integer, default=0)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())
 
-    
     @staticmethod
     def drop_cases():
-        print("?????")
         cases = Case.query.all()
         for case in cases:
             db.session.delete(case)
+
 
 ##版本号-->case_id 一对多
 class Version(db.Model): 
@@ -196,6 +204,7 @@ class Version(db.Model):
     @staticmethod
     def versionCase():
         pass
+
 ##
 class Class(db.Model):  
     __tablename__ = 'classes'
