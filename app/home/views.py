@@ -9,6 +9,7 @@ from ..base.models import Case,User,UserRole,Version,default_pass,role_check
 from .. import db
 from app.base.util import up_version,get_ver_lg
 from datetime import datetime
+from .. import tasks
 
 @blueprint.route('/index', methods=['GET','POST'])
 @login_required

@@ -5,7 +5,7 @@ from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_pagedown import PageDown
-
+import celery_config
 # from config import config
 from importlib import import_module
 
@@ -13,6 +13,8 @@ from importlib import import_module
 db = SQLAlchemy()
 moment = Moment()
 pagedown = PageDown()
+
+celery_config=celery_config
 
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
@@ -40,24 +42,26 @@ def configure_database(app):
         db.session.remove()
 
 ##在工厂函数中创建Celery实例，加载配置，并实现Flask程序上下文支持
-def register_celery(app):
-    celery = Celery(__name__, broker=broker_url)
-    celery.config_from_object('celeryconfig')
-
+def register_celery(celery, app):
+    celery.config_from_object(celery_config)
     class ContextTask(celery.Task):
+        abstract = True
         def __call__(self, *args, **kwargs):
             with app.app_context():
                 return self.run(*args, **kwargs)
 
     celery.Task = ContextTask
 
-def create_app(config):
+def create_app(**kwargs):
     app = Flask(__name__, static_folder='base/static')
-    app.config.from_object(config)
+    app.config.from_object(kwargs.get('config'))
     
     register_extensions(app)
     register_blueprint(app)
     configure_database(app)
+
+    ##注册celery
+    register_celery(kwargs.get('celery'), app=app)
 
     return app
 
