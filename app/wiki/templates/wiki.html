@@ -1,0 +1,29 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} 自动测试 {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='') }}" />
+{% endblock stylesheets %}
+
+{% block content %}
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+    
+    <script></script>
+
+  <script>
+    $(document).ready(function() {
+      // Javascript method's body can be found in assets/js/demos.js
+      md.initDashboardPageCharts();
+
+    });
+  </script>
+  <!-- <script type="app/base/static/assets/modal" src="caseCommit.js"></script> -->
+
+{% endblock javascripts %}
