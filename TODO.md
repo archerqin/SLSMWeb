@@ -151,10 +151,12 @@
 - 
 - [] 增加
 - 
-- [] 多数据库支持
+- [] 多数据库支持 --暂不考虑
     - [x] 方案1：不同项目不同数据库
     - [] 方案2：不同功能不同数据库
     - [] 多数据库如何分开init
     - 
     - flask db init --multidb
     - sqlalchemy.exc.InvalidRequestError: Mapper properties (i.e. deferred,column_property(), relationship(), etc.) must be declared as @declared_attr callables on declarative mixin classes.  For dataclass field() objects, use a lambda
+- [] 分离model
+- [] 新增wikiapp
