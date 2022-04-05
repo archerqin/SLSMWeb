@@ -27,7 +27,7 @@ def register_extensions(app):
     pagedown.init_app(app)
 
 def register_blueprint(app):
-    for module_name in ('base','home'):
+    for module_name in ('base','home','wiki'):
         module = import_module('app.{}.views'.format(module_name))
         app.register_blueprint(module.blueprint)
 

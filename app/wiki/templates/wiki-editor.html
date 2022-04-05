@@ -1,0 +1,45 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} wiki {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/editormd/css/editormd.css') }}" />
+{% endblock stylesheets %}
+
+{% block content %}
+
+<form name="mdEditorForm" action="">
+    <div style="height: 40px;padding: 5px;text-align: center;">
+        wiki: <input type="text" name="title" style="height: 30px;width: 390px;">
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button id="wikiCommit"></button>
+    </div>
+    <div id="wiki_content">
+        <textarea name="content" id="content" style="display: none;"> </textarea>
+    </div>
+</form>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block scripts %}
+  <script src="{{ url_for('static', filename='assets/editormd/editormd.min.js') }}"></script>
+  <script type="text/javascript">
+    console.log("load md");
+    var testEditor;
+    $(function () {
+        testEditor = editormd("wiki_content", {
+            width: "90%",
+            height: 640,
+            syncScrolling: "single",
+            path: "{{ url_for('static',filename='assets/editormd/lib/') }}",
+            
+            imageUpload:true,//是否开启图片上传功能
+            imageFormats:["jpg","jpeg","gif","png","bmp","webp"],//允许上传的图片格式
+            imageUploadURL:"/upload",//图片上传调用的后端功能
+        });
+    });
+  </script> 
+
+{% endblock scripts %}

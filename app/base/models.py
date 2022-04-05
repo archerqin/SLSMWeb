@@ -44,6 +44,7 @@ class UserRole(db.Model):
         db.session.delete(ur)
         db.session.commit()
 
+
 class Role(db.Model):
     __tablename__ = 'roles'
     role_id = db.Column(db.Integer, primary_key=True)
@@ -82,9 +83,12 @@ class Role(db.Model):
             print(role)
             db.session.add(role)
         db.session.commit()
+    
+    
+
     def _repr__(self):
         return '<Role %r>' % self.name
-    
+
 
 class User(db.Model, UserMixin):
 
@@ -184,6 +188,7 @@ class Case(db.Model):
     state = db.Column(db.Integer, default=0)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())
 
+    
     @staticmethod
     def drop_cases():
         cases = Case.query.all()
@@ -216,3 +221,10 @@ class Region(db.Model):
     __tablename__ = 'regions'
     region_id = db.Column(db.Integer, primary_key=True)
     region_name = db.Column(db.String(32))
+
+##wiki
+class Wiki(db.Model):
+    __tablename__ = 'wikis'
+    wiki_id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text, default="")
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.now())

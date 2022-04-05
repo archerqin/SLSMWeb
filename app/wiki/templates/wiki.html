@@ -1,29 +1,48 @@
 {% extends "layouts/base.html" %}
 
-{% block title %} 自动测试 {% endblock %} 
+{% block title %} wiki {% endblock %} 
 
 <!-- Specific Page CSS goes HERE  -->
 {% block stylesheets %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='') }}" />
 {% endblock stylesheets %}
 
 {% block content %}
+<div class="row">
+  <div class="col-lg-12 col-md-12">
+    <div class="card">
+      <div class="card-header card-header-tabs card-header-primary">
+        <div class="nav-tabs-navigation">
+          <div class="nav-tabs-wrapper">
+            <span class="nav-tabs-title">Wikis:</span>
+            <ul class="nav nav-tabs" data-tabs="tabs">
+              <li class="nav-item">
+                <a class="nav-link active" href="{{ url_for('wiki_blueprint.wiki') }}">
+                  <i class="material-icons">bug_report</i> Wikis
+                  <div class="ripple-container"></div>
+                </a>
+              </li>
 
+              <form class="form-inline ml-auto">
+                <button id="caseCommit" type="button" class="btn btn-just-icon" onclick="editor()">
+                  <a class="material-icons">add_task</a>
+                  <div class="ripple-container"></div>
+                </button>
+              </form>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}
-    
-    <script></script>
-
-  <script>
-    $(document).ready(function() {
-      // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
-
-    });
-  </script>
-  <!-- <script type="app/base/static/assets/modal" src="caseCommit.js"></script> -->
-
-{% endblock javascripts %}
+{% block scripts %}
+<script>
+  function editor() {
+    location.href = "{{ url_for('wiki_blueprint.wiki_editor') }}";
+  }
+</script>
+{% endblock scripts %}

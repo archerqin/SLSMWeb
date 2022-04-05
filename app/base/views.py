@@ -40,7 +40,7 @@ def login():
         return render_template( 'accounts/login.html',
                                 form=login_form)
     
-    return redirect(url_for('home_blueprint.index'))
+    return redirect(url_for('home_blueprint.case_online'))
 
 @blueprint.route('/register', methods=['GET', 'POST'])
 def register():
