@@ -102,6 +102,7 @@ class User(db.Model, UserMixin):
                             foreign_keys=[UserRole.user_id],
                             backref='user',
                             lazy='dynamic')
+    wikis = db.relationship('Wiki', backref='author', lazy='dynamic')
 
     def __init__(self, **kwargs):
         for property, value in kwargs.items():
@@ -226,5 +227,7 @@ class Region(db.Model):
 class Wiki(db.Model):
     __tablename__ = 'wikis'
     wiki_id = db.Column(db.Integer, primary_key=True)
+    author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    title = db.Column(db.String(64))
     content = db.Column(db.Text, default="")
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
