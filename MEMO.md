@@ -10,11 +10,11 @@ python -m venv xxxenv
 pip freeze >requirements.txt
 pip install -r requirements.txt
 
+[uwsgi]
+uwsgi --ini uwsgi.ini
+
 
 [sqlalchemy]
-
-
-
 
 |类型名	|Python类型	|说 明|
 |----- |----- |-----|
@@ -44,6 +44,9 @@ https://www.cnblogs.com/lab-zj/p/12612487.html
 https://www.jianshu.com/p/8f2fa6f10496
 https://www.cnblogs.com/liyongsan/p/11039551.html Celery
 
+[editormd]
+参考:https://blog.csdn.net/weixin_46099734/article/details/120636226
+
 在form下添加<button>元素，点击会刷新本页
 
 input text关掉记忆autocomplete="off"
@@ -59,3 +62,5 @@ python模块，将markdown转为doc
 
 [material_icons]
 https://fonts.google.com/icons?selected=Material+Icons
+
+

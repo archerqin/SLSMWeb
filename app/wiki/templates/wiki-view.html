@@ -1,0 +1,42 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} wiki {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='assets/editormd/css/editormd.css') }}" />
+{% endblock stylesheets %}
+
+{% block content %}
+
+<div id="text_editormd">
+    <textarea style="display:none;" placeholder="markdown语言">{{ content }}</textarea>
+</div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block scripts %}
+  <script src="{{ url_for('static',filename='assets/editormd/lib/marked.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='assets/editormd/lib/prettify.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='assets/editormd/lib/raphael.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='assets/editormd/lib/underscore.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='assets/editormd/lib/sequence-diagram.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='assets/editormd/lib/flowchart.min.js') }}"></script>
+  <script src="{{ url_for('static',filename='assets/editormd/lib/jquery.flowchart.min.js') }}"></script>
+  <script src="{{ url_for('static', filename='assets/editormd/editormd.min.js') }}"></script>
+  <script type="text/javascript">
+	var textEditor;
+	$(function(){
+		textEditor = editormd.markdownToHTML("text_editormd",{
+			width:"100%",
+			height:720,
+			path: "{{ url_for('static',filename='editormd/lib/') }}",
+			preview: true,
+			watch:true,
+			editor:false,
+		});
+	});
+	</script>
+
+{% endblock scripts %}

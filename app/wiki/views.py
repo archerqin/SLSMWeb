@@ -31,7 +31,7 @@ def wiki_editor():
 @login_required
 def save():
     title = request.form['title']
-    content = request.form['content']
+    content = request.form['content'].replace('\n','')
     credate = datetime.now().strftime('%Y-%m-%d')
     filename = time.strftime('%Y-%m-%d-%H-%M-%S',time.localtime(time.time()))
     filepath = f'app/wiki/static/md/{filename}_{title}.md'
@@ -57,4 +57,10 @@ def upload():
         }
     else:
         pass
+
+@blueprint.route('/wiki-view/<int:wiki_id>', methods=['GET','POST'])
+@login_required
+def wiki_view(wiki_id):
+    wiki = Wiki.query.get_or_404(wiki_id)
+
 
