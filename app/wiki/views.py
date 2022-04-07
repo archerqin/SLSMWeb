@@ -62,5 +62,6 @@ def upload():
 @login_required
 def wiki_view(wiki_id):
     wiki = Wiki.query.get_or_404(wiki_id)
+    return render_template('wiki-view.html', content=wiki.content)
 
 
