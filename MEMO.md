@@ -3,6 +3,14 @@ git add .
 git commit -m '20220313'
 git push
 
+[venv]
+python -m venv xxxenv
+
+[pip]
+pip freeze >requirements.txt
+pip install -r requirements.txt
+
+
 [sqlalchemy]
 
 
