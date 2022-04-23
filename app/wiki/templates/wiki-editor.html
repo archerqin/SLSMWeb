@@ -9,14 +9,14 @@
 
 {% block content %}
 
-<form name="mdEditorForm" action="/save" method="POST">
+<form name="mdEditorForm" action="/save/0" method="POST">
     <div style="height: 50px;padding: 5px;text-align: center;">
         标题: <input type="text" name="title" style="height: 30px;width: 390px;">
         &nbsp;&nbsp;&nbsp;&nbsp;
         <button id="wikiCommit" class="btn btn-primary btn-sm">提交</button>
     </div>
     <div id="wiki_content">
-        <textarea name="content" id="content" style="display: none;"> </textarea>
+        <textarea name="content" id="content" style="display: none;"></textarea>
     </div>
 </form>
 

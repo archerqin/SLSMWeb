@@ -1,5 +1,6 @@
+from email.policy import default
 from flask_login import UserMixin
-from sqlalchemy import BINARY, Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy import BINARY, BLOB, Column, Integer, String, DateTime, ForeignKey
 from datetime import datetime
 import time
 import json
@@ -95,9 +96,9 @@ class User(db.Model, UserMixin):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-    username = Column(String, unique=True)
-    name = Column(String, unique=True)
-    password = Column(BINARY)
+    username = Column(String(32), unique=True)
+    name = Column(String(32), unique=True)
+    password = Column(BLOB)
     userroles = db.relationship('UserRole',
                             foreign_keys=[UserRole.user_id],
                             backref='user',
@@ -163,16 +164,23 @@ def request_loader(request):
     return user if user else None
 
 ##项目
-class Proj(db.Model):
-    __tablename__ = 'proj'
+class Project(db.Model):
+    __tablename__ = 'projects'
     proj_id = db.Column(db.Integer, primary_key=True)
-    langs = db.Column(db.Integer, db.ForeignKey('langs.lang_id'))
+    proj_name = db.Column(String(32), unique=True)
+    proj_alias = db.Column(String(32), unique=True)
+    lang_name = db.Column(String(32))
+    lang_alias = db.Column(String(32))
 
-class Lang(db.Model):
-    __tablename__ = 'langs'
-    lang_id = db.Column(db.Integer, primary_key=True)
-    lang_abbr = db.Column(db.String(32),default="CN")
-    lang_name = db.Column(db.String(32),default="中国大陆")
+    def __repr__(self):
+        return '<Project %r>' % self.proj_alias+self.lang_alias
+
+
+# class Lang(db.Model):
+#     __tablename__ = 'langs'
+#     lang_id = db.Column(db.Integer, primary_key=True)
+#     lang_abbr = db.Column(db.String(32),default="CN")
+#     lang_name = db.Column(db.String(32),default="中国大陆")
 
 ##修改case
 class Case(db.Model):  
@@ -185,7 +193,7 @@ class Case(db.Model):
     maintainer_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     version_id = db.Column(db.Integer, db.ForeignKey('versions.version_id'))
     class_id = db.Column(db.Integer, db.ForeignKey('classes.class_id'))
-    region_id = db.Column(db.Integer, db.ForeignKey('regions.region_id'))
+    proj_id = db.Column(db.Integer, db.ForeignKey('projects.proj_id'))
     state = db.Column(db.Integer, default=0)
     timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow())
 
@@ -230,4 +238,5 @@ class Wiki(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     title = db.Column(db.String(64))
     content = db.Column(db.Text, default="")
+    publish = db.Column(db.Integer, default=0)  #默认未发布
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now())

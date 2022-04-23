@@ -1,3 +1,5 @@
+from crypt import methods
+from tkinter import PROJECTING
 from flask_sqlalchemy import Pagination
 from sqlalchemy.orm.session import close_all_sessions
 from app.home import blueprint
@@ -5,7 +7,7 @@ from flask import render_template, redirect, url_for, request, make_response, js
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
-from ..base.models import Case,User,UserRole,Version,default_pass,role_check
+from ..base.models import Case,User,UserRole,Version,Project,default_pass,role_check
 from .. import db
 from app.base.util import up_version,get_ver_lg
 from datetime import datetime
@@ -223,3 +225,60 @@ def get_verdesc(verID):
     verinfo["vername"] = ver.version_name
     verinfo["verdesc"] = ver.desc or ""
     return verinfo
+
+def all_proj():
+    projects=Project.query.order_by(Project.proj_id.desc()).all()
+    allprojs = []
+    print(projects)
+    if projects:
+        for proj in projects:
+            p = {}
+            p["projid"] = proj.proj_id
+            p["projname"] = proj.proj_name
+            p["projalias"] = proj.proj_alias
+            p["langname"] = proj.lang_name
+            p["langalias"] = proj.lang_alias
+            allprojs.append(p)
+    
+    return allprojs
+
+@blueprint.route('/get_projects', methods=['GET', 'POST'])
+@login_required
+def get_projects():
+    projInfo = jsonify(all_proj())
+    return projInfo
+
+@blueprint.route('/add_project/<int:proj_id>', methods=['GET', 'POST'])
+@login_required
+def add_project(proj_id):
+    data = json.loads(request.form.get('data'))
+    projname = data['projname']
+    projalias = data['projalias']
+    langname = data['langname']
+    langalias = data['langalias']
+    if proj_id == 0:
+        new_project = Project(proj_name=projname, proj_alias=projalias,
+                        lang_name=langname, lang_alias=langalias)
+        db.session.add(new_project)
+    else:
+        proj = Project.query.get_or_404(proj_id)
+        proj.proj_name = projname,
+        proj.proj_alias=projalias,
+        proj.lang_name=langname,
+        proj.lang_alias=langalias
+        db.session.add(proj)
+    db.session.commit()
+
+    projInfo = all_proj()
+    return projInfo
+
+@blueprint.route('/edit_project/<int:proj_id>', methods=['GET', 'POST'])
+@login_required
+def edit_project(proj_id):
+    proj = Project.query.get_or_404(proj_id)
+    p = {}
+    p['projname'] = proj.proj_name
+    p['projalias'] = proj.proj_alias
+    p['langname'] = proj.lang_name
+    p['langalias'] = proj.lang_alias
+    return jsonify(p)

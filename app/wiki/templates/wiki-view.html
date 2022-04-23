@@ -8,7 +8,11 @@
 {% endblock stylesheets %}
 
 {% block content %}
-
+<H4>{{ wiki.title }}</H4>
+<label>
+	{{wiki.author.name}} {{wiki.timestamp.strftime('%Y-%m-%d %H:%M')}}
+	<a href="{{ url_for('.wiki_reedit',wiki_id=wiki.wiki_id) }}">编辑</a>
+</label>
 <div id="text_editormd">
     <textarea style="display:none;" placeholder="markdown语言">{{ content }}</textarea>
 </div>

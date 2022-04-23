@@ -26,6 +26,21 @@ $(document).ready(function() {
 
         });
     });
+    // 加载项目信息
+    $(function(){
+        // console.log("setproj")
+        $.ajax({
+            type: "POST",
+            url: "/get_projects",
+            cache: false,
+            // data:data,
+            datatype: 'json',
+            success: function(data){
+                set_projlist(data)
+            }
+
+        });
+    });
     // 重置角色User列表信息
     function set_userlist(data){
         var adm = ""
@@ -72,16 +87,33 @@ $(document).ready(function() {
     var verList=[];
     // 重置版本verison列表信息
     function set_verlist(data){
-        verList=data;
         var verlist = ""
-        console.log(data)
-        for (var ver in data) {
-            verlist += "<tr><td>"+data[ver].verlg+"</td><td><a href='#'><div "+"id='verID2Desc"+data[ver].verid+"'>" 
-            +data[ver].vername+"</div></a></td><td>"+data[ver].timestamp+"</td></tr>"
+        if (data.length !== 0){
+            for (var ver in data) {
+                verlist += "<tr><td>"+data[ver].verlg+"</td><td><a href='#'><div "+"id='verID2Desc"+data[ver].verid+"'>" 
+                +data[ver].vername+"</div></a></td><td>"+data[ver].timestamp+"</td></tr>"
+            }
+            $('#verlist').html(verlist)
+            // console.log(data[0].verdesc)
+            $('#onVerDesc').val(data[0].vername+"版本信息\n"+data[0].verdesc)
         }
-        $('#verlist').html(verlist)
-        console.log(data[0].verdesc)
-        $('#onVerDesc').val(data[0].vername+"版本信息\n"+data[0].verdesc)
+    }
+
+    // 项目信息加载
+    function set_projlist(data){
+        var projlist = ""
+        if (data.length !== 0){
+            for (var proj in data) {
+                projlist += "<tr><td>"+data[proj].projname+"</td><td>"
+                +data[proj].langname+"</td><td>"
+                +data[proj].projalias+"-"+data[proj].langalias+"</td><td>"
+                +"<a id=projEdit"+data[proj].projid+" href='#'>编辑</a>" + "&ensp;"
+                +"<a id=projDel"+data[proj].projid+" href='#'>删除</a>" 
+                +"</td></tr>"
+            }
+            console.log(projlist)
+            $('#projlist').html(projlist)
+        }
     }
 
     //// 点击触发加载
@@ -169,6 +201,33 @@ $(document).ready(function() {
             }
         })
     });
+    // 提交新项目（语言）
+    $('[id^=addProjCommit').click(function() {
+        proj_name = $("#proj_name").val()
+        proj_alias = $("#proj_alias").val()
+        lang_name = $("#lang_name").val()
+        lang_alias = $("#lang_alias").val()
+        var data = {
+            data: JSON.stringify({
+                'projname':proj_name,
+                'projalias':proj_alias,
+                'langname':lang_name,
+                'langalias':lang_alias,
+            })
+        };
+        $.ajax({    
+            type: "POST",
+            url: "/add_project/"+"0",
+            cache: false,
+            data:data,
+            datatype: 'json',
+            success: function(data){
+                set_projlist(data)
+            }
+        })
+    });
+
+
     //根据versionname上的id显示具体desc
     $('body').on("click", '[id^=verID2Desc]',function() {
         verID = $(this).attr("id").substring(10)
@@ -184,6 +243,28 @@ $(document).ready(function() {
 
         });
     });
+
+    //// 打开增加项目modal
+    $('#addProj').click(function() {
+        $('#addProjModal').modal('show')
+    });
+
+    //// 打开编辑项目modal
+    $('body').on("click", '[id^=projEdit]',function() {
+        projId = $(this).attr("id").substring(8)
+        console.log(projId)
+
+        $('#addProjModal').modal('show')
+    });
+    //// 删除项目model
+    $('body').on("click", '[id^=projDel]',function() {
+        projId = $(this).attr("id").substring(7)
+        console.log(projId)
+
+        $('#addProjModal').modal('show')
+    });
+    
+
     
 });
     

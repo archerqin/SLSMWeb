@@ -34,8 +34,9 @@
                   </div>
                   <button id="addver_1" class="btn btn-sm btn-info pull-right">增加小版本</button>
                   <button id="addver_2" class="btn btn-sm btn-danger pull-right">增加大版本</button>
-                  
+                  <!-- <button id="addlang" class="btn btn-sm btn-primary pull-right">增加地区</button> -->
                   <div class="clearfix"></div>
+                  {% include 'modals/modal_addProj.html' %}
                   {% include 'modals/modal_addVersion.html' %}
                 </div>
               </div>
@@ -133,14 +134,8 @@
             <div>
                 <div class="card">
                   <div class="card-header card-header-primary">
-                      <h4 class="card-title">Settings</h4>
-                      <p class="card-category">系统设置</p>
-                      <form class="form-inline ml-auto">
-                        <button id="addUser" type="button" class="btn btn-just-icon" data-backdrop="false" data-toggle="modal">
-                          <a class="material-icons">add_task</a>
-                          <div class="ripple-container"></div>
-                        </button>
-                      </form>
+                      <h4 class="card-title">Crews</h4>
+                      <p class="card-category">成员设置</p>
                   </div>
                   {% include 'modals/modal_addUser.html' %}
                   <div class="card-body">
@@ -154,8 +149,32 @@
                             <!-- ajax返回 -->
                           </tbody>
                       </table>
+                      <button id="addUser" class="btn btn-sm btn-info pull-right">增加成员</button>
                   </div>
                 </div>
+            </div>
+            <div>
+              <div class="card">
+                <div class="card-header card-header-primary">
+                    <h4 class="card-title">Projects&Region</h4>
+                    <p class="card-category">项目&地区</p>
+                </div>
+                {% include 'modals/modal_addUser.html' %}
+                <div class="card-body">
+                    <table class="table-striped table-hover" style="table-layout:fixed" width="100%">
+                        <thead>
+                            <th>项目名</th>
+                            <th>语言</th>
+                            <th>简称</th>
+                            <th width="100">操作</th>
+                        </thead>
+                        <tbody id="projlist">
+                          <!-- ajax返回 -->
+                        </tbody>
+                    </table>
+                    <button id="addProj" class="btn btn-sm btn-info pull-right">增加项目</button>
+                </div>
+              </div>
             </div>
           </div>
         </div>

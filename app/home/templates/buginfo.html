@@ -1,21 +1,21 @@
 <tbody>
   {% for case in cases %}
   <tr>
-      <td width="4%">
+      <!-- <td width="4%">
         <div class="form-check-inline">
           <label class="form-check-label">
             <input class="form-check-input" type="checkbox" value="">
           </label>
         </div>
-        <!-- <div class="form-check">
+        <div class="form-check">
           <label class="form-check-label">
             <input class="form-check-input" type="checkbox" value="">
             <span class="form-check-sign">
               <span class="check"></span>
             </span>
           </label>
-        </div> -->
-      </td>
+        </div>
+      </td> -->
       <td width="100">
         {{ moment(case.timestamp).format('YY-MM-DD HH:MM') }}
       </td>

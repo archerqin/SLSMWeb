@@ -5,12 +5,14 @@ from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
 from celery import Celery
 from config import config_dict
+import pymysql
+# pymysql.install_as_MySQLdb
 
 def make_celery(app_name):
     celery = Celery(app_name,
                     broker=celery_config.broker_url,
                     backend=celery_config.result_backend)
-    celery.config_from_object(celery_config)
+    
     return celery
 
 my_celery = make_celery(__name__)

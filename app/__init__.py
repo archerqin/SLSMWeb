@@ -9,6 +9,7 @@ import celery_config
 # from config import config
 from importlib import import_module
 
+
 # bootstrap = Bootstrap()
 db = SQLAlchemy()
 moment = Moment()
