@@ -253,7 +253,7 @@ $(document).ready(function() {
     $('body').on("click", '[id^=projEdit]',function() {
         projId = $(this).attr("id").substring(8)
         console.log(projId)
-
+        $('[id^=addProjCommit').attr('id','addProjCommit'+projId)
         $('#addProjModal').modal('show')
     });
     //// 删除项目model
