@@ -16,6 +16,8 @@ from .. import tasks
 @blueprint.route('/index', methods=['GET','POST'])
 @login_required
 def index():
+    proj = Project.query.first()
+    request.args.get('proj', proj.proj_id, type=int)
     versions = Version.query.order_by(Version.timestamp.desc()).limit(3).all()
     return render_template('version-overview.html', versions=versions, segment='index')
 
