@@ -171,6 +171,15 @@ class Project(db.Model):
     proj_alias = db.Column(String(32), unique=True)
     lang_name = db.Column(String(32))
     lang_alias = db.Column(String(32))
+    cases = db.relationship('Case',
+                            backref = 'projcases',
+                            lazy = 'dynamic')
+    versions = db.relationship('Version',
+                            backref = 'projversions',
+                            lazy = 'dynamic')
+    wikis = db.relationship('Wiki',
+                            backref = 'projwikis',
+                            lazy = 'dynamic')
 
     def __repr__(self):
         return '<Project %r>' % self.proj_alias+self.lang_alias
@@ -226,10 +235,10 @@ class Class(db.Model):
     class_name = db.Column(db.String(32))
 
 ##地区
-class Region(db.Model):  
-    __tablename__ = 'regions'
-    region_id = db.Column(db.Integer, primary_key=True)
-    region_name = db.Column(db.String(32))
+# class Region(db.Model):  
+#     __tablename__ = 'regions'
+#     region_id = db.Column(db.Integer, primary_key=True)
+#     region_name = db.Column(db.String(32))
 
 ##wiki
 class Wiki(db.Model):

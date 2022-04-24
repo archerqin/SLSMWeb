@@ -263,7 +263,33 @@ $(document).ready(function() {
 
         $('#addProjModal').modal('show')
     });
-    
+
+    // 删除项目（语言）
+    // $('[id^=addProjCommit').click(function() {
+        
+    //     proj_name = $("#proj_name").val()
+    //     proj_alias = $("#proj_alias").val()
+    //     lang_name = $("#lang_name").val()
+    //     lang_alias = $("#lang_alias").val()
+    //     var data = {
+    //         data: JSON.stringify({
+    //             'projname':proj_name,
+    //             'projalias':proj_alias,
+    //             'langname':lang_name,
+    //             'langalias':lang_alias,
+    //         })
+    //     };
+    //     $.ajax({    
+    //         type: "POST",
+    //         url: "/add_project/"+"0",
+    //         cache: false,
+    //         // data:data,
+    //         datatype: 'json',
+    //         success: function(data){
+    //             set_projlist(data)
+    //         }
+    //     })
+    // });
 
     
 });
