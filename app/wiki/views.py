@@ -9,7 +9,7 @@ from ..base.models import Wiki
 from .. import db
 from app.base.util import up_version,get_ver_lg
 from datetime import datetime
-from .. import tasks
+# from ... import tasks
 import time
 from os import path
 

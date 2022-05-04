@@ -11,7 +11,7 @@ from ..base.models import Case,User,UserRole,Version,Project,default_pass,role_c
 from .. import db
 from app.base.util import up_version,get_ver_lg
 from datetime import datetime
-from .. import tasks
+from ..tasks import test
 
 @blueprint.route('/index', methods=['GET','POST'])
 @login_required
@@ -284,3 +284,9 @@ def edit_project(proj_id):
     p['langname'] = proj.lang_name
     p['langalias'] = proj.lang_alias
     return jsonify(p)
+
+@blueprint.route('/test', methods=['GET', 'POST'])
+@login_required
+def msg():
+    res = test.delay("test celery")
+    return jsonify(res.wait())

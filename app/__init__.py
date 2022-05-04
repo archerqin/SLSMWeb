@@ -5,7 +5,7 @@ from flask_moment import Moment
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_pagedown import PageDown
-import celery_config
+import celery_config as celery_config
 # from config import config
 from importlib import import_module
 

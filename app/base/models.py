@@ -80,9 +80,10 @@ class Role(db.Model):
             role = Role.query.filter_by(name=r).first()
             if role is None:
                 role = Role(name=r)
+                db.session.add(role)
+            else:
+                role.name=r
             role.permission = roles[r][0]
-            print(role)
-            db.session.add(role)
         db.session.commit()
     
     
@@ -111,6 +112,7 @@ class User(db.Model, UserMixin):
                 value = value[0]
             if property == 'password':
                 value = hash_pass( value )
+                print(value)
 
             setattr(self, property, value)
 
@@ -126,22 +128,26 @@ class User(db.Model, UserMixin):
 
             if user is None:
                 user = User(username=u, password=super_admins[u][0], name=super_admins[u][1])
-                
+                db.session.add(user)
+                for r_id in rolelist:
+                    role = Role.query.filter_by(role_id=r_id).first()
+                    print(user.id)
+                    
+                    UserRole.set_userrole(user.id, role.role_id)
             ##相当于可以重置除username外的其他信息
             ##如果发现配置角色中没有某个职位，则删除
             else:
-                # user = User(password=super_admins[u][0], name=super_admins[u][1])
+                print(super_admins[u][0])
+                user = User(password=super_admins[u][0])
                 oldRoleList =[ur.role_id for ur in UserRole.query.filter_by(user_id=user.id)]
-                print(oldRoleList)
+                print(oldRoleList,rolelist)
                 for oldr in oldRoleList:
                     if oldr not in rolelist:
                         UserRole.unset_userrole(user.id, oldr)
-
-            db.session.add(user)
-            for r_id in rolelist:
-                role = Role.query.filter_by(role_id=r_id).first()
-                print(user.id)
-                UserRole.set_userrole(user.id, role.role_id)
+                for newr in rolelist:
+                    if newr not in oldRoleList:
+                        UserRole.set_userrole(user.id, newr)
+            
         db.session.commit()
 
     def get_role(self, user):
@@ -224,6 +230,7 @@ class Version(db.Model):
     cases = db.relationship('Case',
                             backref = 'cases',
                             lazy = 'dynamic')
+    proj_id = db.Column(db.Integer, db.ForeignKey('projects.proj_id'))
     @staticmethod
     def versionCase():
         pass
@@ -249,3 +256,4 @@ class Wiki(db.Model):
     content = db.Column(db.Text, default="")
     publish = db.Column(db.Integer, default=0)  #默认未发布
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
+    proj_id = db.Column(db.Integer, db.ForeignKey('projects.proj_id'))
