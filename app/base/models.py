@@ -1,11 +1,12 @@
-from email.policy import default
+# from email.policy import default
 from flask_login import UserMixin
 from sqlalchemy import BINARY, BLOB, Column, Integer, String, DateTime, ForeignKey
 from datetime import datetime
 import time
 import json
 
-from app import db, login_manager
+from app import db,login_manager
+# from ..exts import db
 
 from app.base.util import hash_pass
 

@@ -1,6 +1,8 @@
 import os
-from app import create_app, db, celery_config
+from app import create_app, celery_config
 from app.base.models import *
+from app.dev.models import *
+from exts import db
 from flask_script import Manager, Shell, Server
 from flask_migrate import Migrate, MigrateCommand
 from celery import Celery

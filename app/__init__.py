@@ -2,7 +2,8 @@ from flask import Flask
 from celery import Celery
 # from flask_bootstrap import Bootstrap
 from flask_moment import Moment
-from flask_sqlalchemy import SQLAlchemy
+# from flask_sqlalchemy import SQLAlchemy
+from exts import db
 from flask_login import LoginManager
 from flask_pagedown import PageDown
 import celery_config as celery_config
@@ -11,7 +12,7 @@ from importlib import import_module
 
 
 # bootstrap = Bootstrap()
-db = SQLAlchemy()
+# db = SQLAlchemy()
 moment = Moment()
 pagedown = PageDown()
 
@@ -28,7 +29,7 @@ def register_extensions(app):
     pagedown.init_app(app)
 
 def register_blueprint(app):
-    for module_name in ('base','home','wiki'):
+    for module_name in ('base','home','wiki', 'dev'):
         module = import_module('app.{}.views'.format(module_name))
         app.register_blueprint(module.blueprint)
 
