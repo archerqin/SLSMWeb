@@ -4,11 +4,12 @@ from celery import Celery
 from flask_moment import Moment
 # from flask_sqlalchemy import SQLAlchemy
 from exts import db
-from flask_login import LoginManager
+from flask_login import LoginManager,current_user
 from flask_pagedown import PageDown
 import celery_config as celery_config
 # from config import config
 from importlib import import_module
+from functools import wraps
 
 
 # bootstrap = Bootstrap()
@@ -67,3 +68,27 @@ def create_app(**kwargs):
 
     return app
 
+class Permission:
+    COMMIT = 0x01
+    FINISH = 0x02
+    VERSION = 0x04
+    ADMIN = 0x7f
+    SuperAdmin = 0xff
+
+##decorator
+def permission_required(permission):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if not current_user.can(permission):
+                abort(403)
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
+
+
+def admin_required(f):
+    return permission_required(Permission.ADMIN)(f) or permission_required(Permission.SuperAdmin)(f)
+
+def superadmin_required(f):
+    return permission_required(Permission.SuperAdmin)(f)
