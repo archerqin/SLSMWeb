@@ -242,12 +242,12 @@ def all_proj():
             p["langalias"] = proj.lang_alias
             allprojs.append(p)
     
-    return allprojs
+    return jsonify(allprojs)
 
 @blueprint.route('/get_projects', methods=['GET', 'POST'])
 @login_required
 def get_projects():
-    projInfo = jsonify(all_proj())
+    projInfo = all_proj()
     return projInfo
 
 @blueprint.route('/add_project/<int:proj_id>', methods=['GET', 'POST'])

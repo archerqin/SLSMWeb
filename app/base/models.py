@@ -174,8 +174,8 @@ def request_loader(request):
 class Project(db.Model):
     __tablename__ = 'projects'
     proj_id = db.Column(db.Integer, primary_key=True)
-    proj_name = db.Column(String(32), unique=True)
-    proj_alias = db.Column(String(32), unique=True)
+    proj_name = db.Column(String(32))
+    proj_alias = db.Column(String(32))
     lang_name = db.Column(String(32))
     lang_alias = db.Column(String(32))
     cases = db.relationship('Case',
