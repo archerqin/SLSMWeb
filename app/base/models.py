@@ -258,3 +258,11 @@ class Wiki(db.Model):
     publish = db.Column(db.Integer, default=0)  #默认未发布
     timestamp = db.Column(db.DateTime, index=True, default=datetime.now())
     proj_id = db.Column(db.Integer, db.ForeignKey('projects.proj_id'))
+
+
+##autotest
+class AutoTest(db.Model):
+    __tablename__ = 'autotests'
+    autotest_id = db.Column(db.Integer,primary_key=True)
+    #将要执行的具体文件转储为json格式
+    test_json = db.Column(db.Text)

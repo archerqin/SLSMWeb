@@ -49,4 +49,11 @@ def get_ver_lg(version_name:str):
     return ".".join(verlist[:3])
 
 
+##autotest
+##检索目标路径下的文件
+def jsonify_scripts():
+    autotest_scripts_path = 'app/autotest/autotest_scripts'
+    for file_name in os.listdir(autotest_scripts_path):
+        print(file_name)
 
+jsonify_scripts()

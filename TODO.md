@@ -160,3 +160,16 @@
     - sqlalchemy.exc.InvalidRequestError: Mapper properties (i.e. deferred,column_property(), relationship(), etc.) must be declared as @declared_attr callables on declarative mixin classes.  For dataclass field() objects, use a lambda
 - [] 分离model
 - [] 新增wikiapp
+
+
+- [] 关于自动化测试的初步api
+[api1]
+unity请求当前挂起的执行脚本
+web server获得请求，查询AutoTest.test_json，返回json格式的文本内容
+
+unity获得文本内容，根据文本load执行脚本
+[api2]
+如果结束或者中断，需返回截图、报错文本等到web_server
+
+图片均单张独立上传，upload接口.post
+返回{"code":'200/503',"data":"","message":""}

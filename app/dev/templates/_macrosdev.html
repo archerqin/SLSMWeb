@@ -1,7 +1,7 @@
 {% macro pagination_widget(pagination, endpoint, fragment='') %}
 <ul class="pagination">
     <li {% if not pagination.has_prev %} class="disabled" {% endif %}>
-        <a class="page-link" href="{% if pagination.has_prev %}{{ url_for(endpoint, page_wiki=pagination.prev_num, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+        <a class="page-link" href="{% if pagination.has_prev %}{{ url_for(endpoint, page_dev=pagination.prev_num, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
             &laquo;
         </a>
     </li>
@@ -11,11 +11,11 @@
             <nav aria-label="...">
                 <ul class="pagination justify-content-end">
                     <li class="page-item active">
-                        <a class="page-link" href="{{ url_for(endpoint, page_wiki=p, **kwargs) }}{{ fragment }}">{{ p }}</a>
+                        <a class="page-link" href="{{ url_for(endpoint, page_dev=p, **kwargs) }}{{ fragment }}">{{ p }}</a>
                     </li>
                     {% else %}
                     <li class="page-item">
-                        <a class="page-link" href="{{ url_for(endpoint, page_wiki=p, **kwargs) }}{{ fragment }}">{{ p }}</a>
+                        <a class="page-link" href="{{ url_for(endpoint, page_dev=p, **kwargs) }}{{ fragment }}">{{ p }}</a>
                     </li>
                 </ul>
             </nav>
@@ -25,7 +25,7 @@
         {% endif %}
     {% endfor %}
     <li {% if not pagination.has_next %} class="disabled"{% endif %}>
-        <a class="page-link" href="{% if pagination.has_next %}{{ url_for(endpoint, page_wiki=pagination.next_num, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
+        <a class="page-link" href="{% if pagination.has_next %}{{ url_for(endpoint, page_dev=pagination.next_num, **kwargs) }}{{ fragment }}{% else %}#{% endif %}">
             &raquo;
         </a>
     </li>
